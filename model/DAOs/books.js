@@ -2,7 +2,7 @@ import fs from "fs";
 
 class BooksModel {
   constructor() {
-    this.nombre = "books.json";
+    this.nombre = "data/books.json";
   }
 
   leerArchivo = async (nombre) => {
@@ -10,6 +10,7 @@ class BooksModel {
 
     try {
       productos = JSON.parse(await fs.promises.readFile(nombre, "utf8"));
+      console.log(productos);
     } catch (error) {
       throw new Error(`Error leyendo ${this.nombre}`);
     }

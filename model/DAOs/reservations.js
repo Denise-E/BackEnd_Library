@@ -2,7 +2,7 @@ import fs from "fs";
 
 class ReservationsModel {
   constructor() {
-    this.nombre = "reservations.json";
+    this.nombre = "data/reservations.json";
   }
 
   leerArchivo = async (nombre) => {

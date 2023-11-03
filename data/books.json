@@ -4,5 +4,11 @@
 		"autor": "George Orwell",
 		"available_quantity": 100,
 		"id": 1
+	},
+	{
+		"titulo": "1984",
+		"autor": "George Orwell",
+		"available_quantity": 300,
+		"id": 2
 	}
 ]

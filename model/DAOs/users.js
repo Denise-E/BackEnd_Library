@@ -2,7 +2,7 @@ import fs from "fs";
 
 class UsersModel {
   constructor() {
-    this.nombre = "users.json";
+    this.nombre = "data/users.json";
   }
 
   leerArchivo = async (nombre) => {
