@@ -1,8 +1,8 @@
-import ReservationsModel from "../model/DAOs/reservations.js";
+import ReservationModel from "../model/DAOs/reservations.js";
 
-class ReservationsService {
+class ReservationService {
   constructor() {
-    this.model = new ReservationsModel();
+    this.model = new ReservationModel();
   }
 
   get = async (id) => {
@@ -23,4 +23,4 @@ class ReservationsService {
 
 }
 
-export default ReservationsService;
+export default ReservationService;

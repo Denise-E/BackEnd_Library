@@ -1,8 +1,8 @@
-import ReservationsService from "../service/reservations.js";
+import ReservationService from "../service/reservations.js";
 
-class ReservationsController {
+class ReservationController {
   constructor() {
-    this.service = new ReservationsService();
+    this.service = new ReservationService();
   }
 
   get = async (req, res) => {
@@ -52,4 +52,4 @@ class ReservationsController {
   };
 }
 
-export default ReservationsController;
+export default ReservationController;

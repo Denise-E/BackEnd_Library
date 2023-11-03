@@ -1,11 +1,11 @@
 import express from "express";
-import ReservationsController from "../controller/reservations.js";
+import ReservationController from "../controller/reservations.js";
 
 const router = express.Router();
 
-class ReservationsRouter {
+class ReservationRouter {
   constructor() {
-    this.controller = new ReservationsController();
+    this.controller = new ReservationController();
   }
 
   start() {
@@ -18,4 +18,4 @@ class ReservationsRouter {
   }
 }
 
-export default ReservationsRouter;
+export default ReservationRouter;

@@ -1,8 +1,8 @@
-import BooksService from "../service/books.js";
+import BookService from "../service/books.js";
 
 class BookController {
   constructor() {
-    this.service = new BooksService();
+    this.service = new BookService();
   }
 
   get = async (req, res) => {

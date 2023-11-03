@@ -1,6 +1,6 @@
 import fs from "fs";
 
-class BooksModel {
+class BookModel {
   constructor() {
     this.nombre = "data/books.json";
   }
@@ -127,4 +127,4 @@ class BooksModel {
   };
 }
 
-export default BooksModel;
+export default BookModel;

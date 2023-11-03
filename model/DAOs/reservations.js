@@ -1,6 +1,6 @@
 import fs from "fs";
 
-class ReservationsModel {
+class ReservationModel {
   constructor() {
     this.nombre = "data/reservations.json";
   }
@@ -127,4 +127,4 @@ class ReservationsModel {
   };
 }
 
-export default ReservationsModel;
+export default ReservationModel;
