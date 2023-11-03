@@ -1,2 +1,6 @@
 * Metodo para registrar devolucion de reservas
 * Muestra de reservas al usuario con cantidades y estados.
+* Implementar BD
+* API - https://vasga-floze.github.io/docs-api-book/endpoints.html
+    Libros que puedan solicitar/sugerir para que lo traigamos al local. 
+    (Filtrar de mostrar libros que no hay en nuestra BD)
