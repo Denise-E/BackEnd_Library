@@ -1,8 +1,8 @@
-import BooksService from "../service/books.js";
+import ReservationsService from "../service/reservations.js";
 
-class BookController {
+class ReservationsController {
   constructor() {
-    this.service = new BooksService();
+    this.service = new ReservationsService();
   }
 
   get = async (req, res) => {
@@ -52,4 +52,4 @@ class BookController {
   };
 }
 
-export default BookController;
+export default ReservationsController;

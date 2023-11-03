@@ -1,5 +1,6 @@
 import express from "express";
 import BookRouter from "./router/books.js";
+import ReservationRouter from "./router/reservations.js";
 
 const app = express();
 //app.use(express.urlencoded({ extended:true})); Para forms
@@ -7,9 +8,11 @@ app.use(express.json());
 app.use(express.static("public"));
 
 const routerBook = new BookRouter();
+const routerReservation = new ReservationRouter();
 
 // Routes
 app.use("/api/books", routerBook.start());
+app.use("/api/reservations", routerReservation.start());
 
 // Server
 const PORT = 8080;
