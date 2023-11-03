@@ -1,8 +1,8 @@
 import fs from "fs";
 
-class ReservationsModel {
+class UsersModel {
   constructor() {
-    this.nombre = "reservations.json";
+    this.nombre = "users.json";
   }
 
   leerArchivo = async (nombre) => {
@@ -69,10 +69,9 @@ class ReservationsModel {
 
       prod.id = this.getNext_Id(productos);
 
-      prod.id_client = prod.id_client;
-      prod.id_book = prod.id_book;
-      prod.initial_date = Date.parse(prod.initial_date);
-      prod.final_date = null; 
+      prod.title = prod.title;
+      prod.autor = prod.autor;
+      prod.available_quantity = parseInt(prod.available_quantity);
 
       productos.push(prod);
       await this.escribirArchivo(this.nombre, productos);
@@ -127,4 +126,4 @@ class ReservationsModel {
   };
 }
 
-export default ReservationsModel;
+export default UsersModel;

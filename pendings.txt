@@ -1,0 +1,2 @@
+* Metodo para registrar devolucion de reservas
+* Muestra de reservas al usuario con cantidades y estados.
