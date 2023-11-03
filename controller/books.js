@@ -1,8 +1,8 @@
-import Service from "../service/service.js";
+import BooksService from "../service/books.js";
 
-class Controller {
+class RouterBook {
   constructor() {
-    this.service = new Service();
+    this.service = new BooksService();
   }
 
   get = async (req, res) => {
@@ -52,4 +52,4 @@ class Controller {
   };
 }
 
-export default Controller;
+export default RouterBook;

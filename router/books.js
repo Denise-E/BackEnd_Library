@@ -1,11 +1,11 @@
 import express from "express";
-import Controller from "../controller/controller.js";
+import BookController from "../controller/books.js";
 
 const router = express.Router();
 
-class Router {
+class RouterBook {
   constructor() {
-    this.controller = new Controller();
+    this.controller = new BookController();
   }
 
   start() {
@@ -18,4 +18,4 @@ class Router {
   }
 }
 
-export default Router;
+export default RouterBook;

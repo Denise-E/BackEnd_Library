@@ -1,8 +1,8 @@
-import Model from "../model/DAOs/model.js";
+import BookModel from "../model/DAOs/books.js";
 
-class Service {
+class BookService {
   constructor() {
-    this.model = new Model();
+    this.model = new BookModel();
   }
 
   get = async (id) => {
@@ -23,4 +23,4 @@ class Service {
 
 }
 
-export default Service;
+export default BookService;

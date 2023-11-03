@@ -1,15 +1,15 @@
 import express from "express";
-import Router from "./router/router.js";
+import BookRouter from "./router/books.js";
 
 const app = express();
 //app.use(express.urlencoded({ extended:true})); Para forms
 app.use(express.json());
 app.use(express.static("public"));
 
-const router = new Router();
+const routerBook = new BookRouter();
 
 // Routes
-app.use("/api/obj", router.start());
+app.use("/api/books", routerBook.start());
 
 // Server
 const PORT = 8080;
