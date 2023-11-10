@@ -48,6 +48,22 @@ class ReservationModel {
     }
   };
 
+  get_by_user = async (id) => {
+    try {
+      const productos = await this.leerArchivo(this.nombre);
+
+      if (id != undefined) {
+        const p = productos.find((p) => p.id_client == id);
+        return p || {};
+      } else {
+        return productos;
+      }
+    } catch {
+      return id ? {} : [];
+    }
+  };
+
+
   add = async (prod) => {
     try {
 
@@ -119,6 +135,7 @@ class ReservationModel {
       }
 
       prod = productos.splice(index, 1)[0];
+
       await this.escribirArchivo(this.nombre, productos);
       return prod;
     } catch (err) {

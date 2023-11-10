@@ -1,1 +1,107 @@
-[]
+[
+    {
+      "name": "Carolina Didia",
+      "admin": true,
+      "email": "carolina@libreria.com.ar",
+      "password": "soycaro",
+      "id": "3"
+    },
+    {
+      "name": "Ariel Nicolas",
+      "admin": true,
+      "email": "ariel@libreria.com.ar",
+      "password": "ari",
+      "id": "4"
+    },
+    {
+      "name": "Juan Perez",
+      "admin": false,
+      "email": "juan@gmail.com",
+      "password": "juan123",
+      "id": "5"
+    },
+    {
+      "name": "Luisa Martinez",
+      "admin": false,
+      "email": "luisa@yahoo.com",
+      "password": "luisita",
+      "id": "6"
+    },
+    {
+      "name": "Roberto Fernandez",
+      "admin": false,
+      "email": "roberto@gmail.com",
+      "password": "robert123",
+      "id": "7"
+    },
+    {
+      "name": "Maria Rodriguez",
+      "admin": false,
+      "email": "maria@hotmail.com",
+      "password": "maria456",
+      "id": "8"
+    },
+    {
+      "name": "Carlos Gonzalez",
+      "admin": false,
+      "email": "carlos@yahoo.com",
+      "password": "carlitos",
+      "id": "9"
+    },
+    {
+      "name": "Elena Silva",
+      "admin": false,
+      "email": "elena@gmail.com",
+      "password": "elena789",
+      "id": "10"
+    },
+    {
+      "name": "Javier Morales",
+      "admin": false,
+      "email": "javier@hotmail.com",
+      "password": "javi123",
+      "id": "11"
+    },
+    {
+      "name": "Isabel Gomez",
+      "admin": false,
+      "email": "isabel@yahoo.com",
+      "password": "isabelita",
+      "id": "12"
+    },
+    {
+      "name": "Fernando Diaz",
+      "admin": false,
+      "email": "fernando@gmail.com",
+      "password": "fer123",
+      "id": "13"
+    },
+    {
+      "name": "Laura Sanchez",
+      "admin": false,
+      "email": "laura@hotmail.com",
+      "password": "lau456",
+      "id": "14"
+    },
+    {
+      "name": "Miguel Torres",
+      "admin": false,
+      "email": "miguel@gmail.com",
+      "password": "miguelito",
+      "id": "15"
+    },
+    {
+      "name": "Ana Lopez",
+      "admin": false,
+      "email": "ana@yahoo.com",
+      "password": "ana789",
+      "id": "16"
+    },
+    {
+      "name": "Pedro Ramirez",
+      "admin": false,
+      "email": "pedro@hotmail.com",
+      "password": "pedro123",
+      "id": "17"
+    }
+]

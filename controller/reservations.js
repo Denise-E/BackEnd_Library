@@ -15,6 +15,16 @@ class ReservationController {
       console.log("error al obtener datos ", error);
     }
   };
+  get_by_user = async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      let productos = await this.service.get_by_user(id);
+      res.json(productos);
+    } catch (error) {
+      console.log("error al obtener datos ", error);
+    }
+  };
 
   add = async (req, res) => {
     try {

@@ -1,6 +1,8 @@
-* Metodo para registrar devolucion de reservas
-* Muestra de reservas al usuario con cantidades y estados.
+CONSULTAR
+
+* Chequear servicio reservas en DELETE (bien ubicado?). Es mediana dificultad?
+
+Clase que viene 
+
 * Implementar BD
-* API - https://vasga-floze.github.io/docs-api-book/endpoints.html
-    Libros que puedan solicitar/sugerir para que lo traigamos al local. 
-    (Filtrar de mostrar libros que no hay en nuestra BD)
+* Implementar Front

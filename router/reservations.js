@@ -8,7 +8,8 @@ class ReservationRouter {
     this.controller = new ReservationController();
   }
 
-  start() {
+  start() { 
+    router.get("/all/:id_user", this.controller.get_by_user);
     router.get("/:id?", this.controller.get);
     router.post("/", this.controller.add);
     router.put("/:id", this.controller.update);
