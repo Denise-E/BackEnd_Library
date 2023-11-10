@@ -15,6 +15,20 @@ class BookController {
       console.log("error al obtener datos ", error);
     }
   };
+  get_suggestions = (req, res) => {
+    
+    fetch('https://653062896c756603295e947b.mockapi.io/api/books')
+    .then(res =>  {
+      return res.json()})
+    .then(data => {
+      res.json([...data]);
+    }
+      )
+    .catch(err => {
+      return err
+    })
+
+  };
 
   add = async (req, res) => {
     try {

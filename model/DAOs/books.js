@@ -10,7 +10,6 @@ class BookModel {
 
     try {
       productos = JSON.parse(await fs.promises.readFile(nombre, "utf8"));
-      console.log(productos);
     } catch (error) {
       throw new Error(`Error leyendo ${this.nombre}`);
     }
