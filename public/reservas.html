@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Todos los libros</a>
+            <a href="agregarLibro.html">Agregar Libro</a>
+            <a href="usuarios.html">Usuarios</a>
+            <a href="reservas.html">Reservas</a>
+        </nav>
+    </header>
+
+    <main id="app" class="container mt-5" style="text-align: center">
+        <button class="btn btn-primary" @click="agregarUsuario()">Agregar Usuario</button>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Libro</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="r in reservations">
+                    <td>{{ r.client }}</td>
+                    <td>{{ r.book }}</td>
+                    <td>
+                        <button class="btn btn-primary" @click="verDetalles(r.id)">Ver detalles</button>
+                        <button class="btn btn-danger" @click="eliminarLibro(r.id)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    
+
+    <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<script>
+
+const { createApp, ref } = Vue
+
+createApp({
+  data() {
+    return {
+        lista: [],
+        error: "",
+        users:[],
+        books:[],
+        reservations:[],
+        }
+    },
+  methods:{
+    loadData(){ 
+        
+        this.loadBooks();
+        this.loadUsers();
+        
+        fetch('api/reservations/')
+        .then(res => res.json())
+        .then(data => {
+          data.forEach(e => {
+            let client = this.users.find(client => client.id == e.id_client)
+            let book = this.books.find(book => book.id == e.id_book)
+            this.reservations.push({ client: client.name, book: book.titulo, id: e.id, idBook: e.id_book })
+          })
+        })
+        .catch(err => this.error = err)
+
+    },
+    loadUsers(){
+        fetch('api/users/')
+        .then(res => res.json())
+        .then(data => {
+          this.users = [...data]
+          console.log(data)
+          }
+        )
+        .catch(err => this.error = err)
+    },
+    loadBooks(){
+        fetch('api/books/')
+        .then(res => res.json())
+        .then(data => {
+            this.books = [...data]
+            console.log(data)
+          }
+        )
+        .catch(err => this.error = err)
+    },
+    verDetalles(id) {
+    window.location.href = `usuarioPorId.html?id=${id}`;
+    },
+
+    eliminarLibro(id) {
+    window.location.href = `usuarioEliminado.html?id=${id}`;
+    },
+    agregarUsuario(){
+        window.location.href = 'agregarUsuario.html';
+    }
+  },
+  mounted(){
+    this.loadData()
+  }
+}).mount('#app')
+ 
+</script>

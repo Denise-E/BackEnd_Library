@@ -1,6 +1,7 @@
 CONSULTAR
 
 * Chequear servicio reservas en DELETE (bien ubicado?). Es mediana dificultad?
+* que mostrar los datos concretos de una reserva se haga desde servicio y no desde el front
 
 Clase que viene 
 
