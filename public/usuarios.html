@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Todos los libros</a>
+            <a href="agregarLibro.html">Agregar Libro</a>
+            <a href="usuarios.html">Usuarios</a>
+        </nav>
+    </header>
+
+    <main id="app" class="container mt-5" style="text-align: center">
+        <button class="btn btn-primary" @click="agregarUsuario()">Agregar Usuario</button>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="u in lista">
+                    <td>{{ u.name }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>
+                        <button class="btn btn-primary" @click="verDetalles(u.id)">Ver detalles</button>
+                        <button class="btn btn-danger" @click="eliminarLibro(u.id)">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    
+
+    <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<script>
+
+const { createApp, ref } = Vue
+
+createApp({
+  data() {
+    return {
+        lista: [],
+        error: ""
+        }
+    },
+  methods:{
+    loadData(){
+        fetch('api/users/')
+        .then(res => res.json())
+        .then(data => {
+          this.lista = [...data]
+          console.log(data);
+          }
+        )
+        .catch(err => this.error = err)
+    },
+    verDetalles(id) {
+    window.location.href = `usuarioPorId.html?id=${id}`;
+    },
+
+    eliminarLibro(id) {
+    window.location.href = `usuarioEliminado.html?id=${id}`;
+    },
+    agregarUsuario(){
+        window.location.href = 'agregarUsuario.html';
+    }
+  },
+  mounted(){
+    this.loadData()
+  }
+}).mount('#app')
+ 
+</script>

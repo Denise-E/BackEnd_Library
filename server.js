@@ -4,7 +4,7 @@ import ReservationRouter from "./router/reservations.js";
 import UserRouter from "./router/users.js";
 
 const app = express();
-//app.use(express.urlencoded({ extended:true})); Para forms
+app.use(express.urlencoded({ extended:true})); //Para forms
 app.use(express.json());
 app.use(express.static("public"));
 
