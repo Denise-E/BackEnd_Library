@@ -20,7 +20,6 @@ class BookService {
   delete = async (id) => {
     return await this.model.delete(id);
   };
-
 }
 
 export default BookService;

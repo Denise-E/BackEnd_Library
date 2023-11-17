@@ -102,7 +102,6 @@
 		"email": "martina@libreria.com.ar",
 		"password": 1234,
 		"admin": true,
-		"id": 18,
-		"available_quantity": null
+		"id": 18
 	}
 ]

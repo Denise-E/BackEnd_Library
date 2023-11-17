@@ -12,22 +12,22 @@ class BookController {
       let productos = await this.service.get(id);
       res.json(productos);
     } catch (error) {
-      console.log("error al obtener datos ", error);
+      console.log("Error al obtener libros: ", error);
     }
   };
+  
   get_suggestions = (req, res) => {
-    
-    fetch('https://653062896c756603295e947b.mockapi.io/api/books')
-    .then(res =>  {
-      return res.json()})
-    .then(data => {
-      res.json([...data]);
-    }
-      )
-    .catch(err => {
-      return err
-    })
-
+    fetch("https://653062896c756603295e947b.mockapi.io/api/books")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        res.json([...data]);
+      })
+      .catch((err) => {
+        console.log("Error al obtener libros externos: ", err.message);
+        return err;
+      });
   };
 
   add = async (req, res) => {
@@ -38,7 +38,7 @@ class BookController {
       res.json(added);
       //.redirect('/');
     } catch (error) {
-      console.log("error al crear", error);
+      console.log("Error al crear libro: ", error);
     }
   };
 
@@ -50,7 +50,7 @@ class BookController {
       const producto = await this.service.update(id, prod);
       res.json(producto);
     } catch (error) {
-      console.log("error al actualizar ", error);
+      console.log("Error al actualizar libro: ", error);
     }
   };
 
@@ -61,7 +61,7 @@ class BookController {
       const prod = await this.service.delete(id);
       res.json(prod);
     } catch (error) {
-      console.log("error al eliminar s", error);
+      console.log("Error al eliminar libro: ", error);
     }
   };
 }

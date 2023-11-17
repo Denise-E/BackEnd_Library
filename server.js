@@ -2,17 +2,17 @@ import express from "express";
 import BookRouter from "./router/books.js";
 import ReservationRouter from "./router/reservations.js";
 import UserRouter from "./router/users.js";
-import config from './config.js'
-import CnxMongoDB from './model/DBMongo.js'
+import config from "./config.js";
+import CnxMongoDB from "./model/DBMongo.js";
 
 const app = express();
-app.use(express.urlencoded({ extended:true})); //Para forms
-app.use(express.json());
-app.use(express.static("public"));
-
 const routerBook = new BookRouter();
 const routerReservation = new ReservationRouter();
 const routerUser = new UserRouter();
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
 // Routes
 app.use("/api/books", routerBook.start());
@@ -22,8 +22,8 @@ app.use("/api/users", routerUser.start());
 // -----------------------------------------------
 //        LISTEN DEL SERVIDOR EXPRESS
 // -----------------------------------------------
-if(config.MODO_PERSISTENCIA == 'MONGODB') {
-  await CnxMongoDB.conectar()
+if (config.MODO_PERSISTENCIA == "MONGODB") {
+  await CnxMongoDB.conectar();
 }
 
 // Server

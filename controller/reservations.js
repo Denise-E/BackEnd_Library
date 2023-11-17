@@ -12,17 +12,17 @@ class ReservationController {
       let productos = await this.service.get(id);
       res.json(productos);
     } catch (error) {
-      console.log("error al obtener datos ", error);
+      console.log("Error al obtener reservas: ", error);
     }
   };
-  get_by_user = async (req, res) => {
+  get_by_user = async (req, res) => { // REPETIDO
     try {
       const { id } = req.params;
 
       let productos = await this.service.get_by_user(id);
       res.json(productos);
     } catch (error) {
-      console.log("error al obtener datos ", error);
+      console.log("Error al obtener reserva: ", error);
     }
   };
 
@@ -34,7 +34,7 @@ class ReservationController {
       res.json(added);
       //.redirect('/');
     } catch (error) {
-      console.log("error al crear", error);
+      console.log("Error al crear reserva: ", error);
     }
   };
 
@@ -46,7 +46,7 @@ class ReservationController {
       const producto = await this.service.update(id, prod);
       res.json(producto);
     } catch (error) {
-      console.log("error al actualizar ", error);
+      console.log("Error al actualizar reserva: ", error);
     }
   };
 
@@ -57,7 +57,7 @@ class ReservationController {
       const prod = await this.service.delete(id);
       res.json(prod);
     } catch (error) {
-      console.log("error al eliminar s", error);
+      console.log("Error al eliminar reserva: ", error);
     }
   };
 }

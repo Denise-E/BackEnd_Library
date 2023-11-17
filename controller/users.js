@@ -12,7 +12,7 @@ class UserController {
       let productos = await this.service.get(id);
       res.json(productos);
     } catch (error) {
-      console.log("error al obtener datos ", error);
+      console.log("Error al obtener usuarios: ", error);
     }
   };
 
@@ -24,7 +24,7 @@ class UserController {
       res.json(added);
       //.redirect('/');
     } catch (error) {
-      console.log("error al crear", error);
+      console.log("Error al crear usuario: ", error);
     }
   };
 
@@ -36,7 +36,7 @@ class UserController {
       const producto = await this.service.update(id, prod);
       res.json(producto);
     } catch (error) {
-      console.log("error al actualizar ", error);
+      console.log("Error al actualizar usuario: ", error);
     }
   };
 
@@ -47,7 +47,7 @@ class UserController {
       const prod = await this.service.delete(id);
       res.json(prod);
     } catch (error) {
-      console.log("error al eliminar s", error);
+      console.log("Error al eliminar usuario: ", error);
     }
   };
 }

@@ -50,7 +50,6 @@ class UserModel {
 
   add = async (prod) => {
     try {
-
       const productos = await this.leerArchivo(this.nombre);
 
       prod.id = this.getNext_Id(productos);

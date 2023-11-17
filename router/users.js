@@ -10,6 +10,7 @@ class UserRouter {
 
   start() {
     router.get("/:id?", this.controller.get);
+
     router.post("/", this.controller.add);
     router.put("/:id", this.controller.update);
     router.delete("/:id", this.controller.delete);
