@@ -6,4 +6,4 @@ PENDIENTE
 * Test GET reservas
 * Validar campos en inserts y updates con JOI:
     - Hecho para POST de libros (usado en test). 
-    - Hacer dentro de la carpeta de servicios (+ MANEJO DE ERRORES en controllador)
+    - Hacer dentro de la carpeta de servicios (+ MANEJO DE ERRORES en controlador)
