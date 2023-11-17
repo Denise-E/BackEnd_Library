@@ -51,20 +51,6 @@ class UserModel {
   add = async (prod) => {
     try {
 
-      /* Valido la cantidad de campos ingresados
-      if(Object.keys(number).length > 1){ 
-        return `Debe ingresar unicamente el campo numero`;
-      }
-
-      Valido los campos ingresados, las keys
-      if (
-        prod["titulo"] == undefined ||
-        prod["autor"] == undefined ||
-        prod["anio"] == undefined
-      ) {
-        return `Debe ingresar todos los datos`;
-      } */
-
       const productos = await this.leerArchivo(this.nombre);
 
       prod.id = this.getNext_Id(productos);
