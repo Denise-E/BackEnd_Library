@@ -5,7 +5,6 @@ Clase que viene
 * Listado reservas pasar logica del html al servicio
 * Vistas reservas
 * CHEQUEAR CREACION USUARIO
-* Sacar fecha de devolucion si elegimos borrar reservas al devolverse
 
 ENDPOINTS:
 * GET reservas

@@ -1,115 +1,46 @@
-import fs from "fs";
+import { ObjectId } from "mongodb"
+import CnxMongoDB from "../DBMongo.js"
 
-class BookModel {
-  constructor() {
-    this.nombre = "data/books.json";
-  }
+class ModelMongoDB {
+    get = async id => {   
+        if(!CnxMongoDB.connection) return id? {}:[]
 
-  leerArchivo = async (nombre) => {
-    let productos = undefined;
-
-    try {
-      productos = JSON.parse(await fs.promises.readFile(nombre, "utf8"));
-    } catch (error) {
-      throw new Error(`Error leyendo ${this.nombre}`);
+        if(id) {
+            const producto = await CnxMongoDB.db.collection('books').findOne({_id: new ObjectId(id)})
+            return producto
+        }
+        else {
+            const productos = await CnxMongoDB.db.collection('books').find({}).toArray()
+            return productos
+        }
     }
 
-    return productos;
-  };
+    add = async producto => {
+        if(!CnxMongoDB.connection) return {}
 
-  escribirArchivo = async (nombre, productos) => {
-    try {
-      await fs.promises.writeFile(
-        nombre,
-        JSON.stringify(productos, null, "\t")
-      );
-    } catch (error) {
-      throw new Error(`Error escribiendo en ${this.nombre}`);
+        await CnxMongoDB.db.collection('books').insertOne(producto)
+        return producto
     }
-  };
 
-  getNext_Id(palabras) {
-    let lg = palabras.length;
-    return lg ? parseInt(palabras[lg - 1].id) + 1 : 1;
-  }
+    update = async (id, producto) => {
+        if(!CnxMongoDB.connection) return {}
 
-  get = async (id) => {
-    try {
-      const productos = await this.leerArchivo(this.nombre);
+        await CnxMongoDB.db.collection('books').updateOne(
+            { _id: new ObjectId(id) },
+            { $set: producto }
+        )
 
-      if (id != undefined) {
-        const p = productos.find((p) => p.id == id);
-        return p || {};
-      } else {
-        return productos;
-      }
-    } catch {
-      return id ? {} : [];
+        const productosActualizado = await this.obtenerProductos(id)
+        return productosActualizado
     }
-  };
 
-  add = async (prod) => {
-    try {
+    delete = async id => {
+        if(!CnxMongoDB.connection) return {}
 
-      const productos = await this.leerArchivo(this.nombre);
-
-      prod.id = this.getNext_Id(productos);
-
-      prod.title = prod.title;
-      prod.autor = prod.autor;
-      prod.available_quantity = parseInt(prod.available_quantity);
-
-      productos.push(prod);
-      await this.escribirArchivo(this.nombre, productos);
-
-      return prod;
-    } catch (err) {
-      throw err.message;
+        const productosBorrado = await this.obtenerProductos(id)
+        await CnxMongoDB.db.collection('books').deleteOne( { _id: new ObjectId(id) })
+        return productosBorrado
     }
-  };
-
-  update = async (id, prod) => {
-    try {
-      prod.id = parseInt(id);
-      const productos = await this.leerArchivo(this.nombre);
-
-      const index = productos.findIndex((p) => p.id == id);
-
-      if (index != -1) {
-        const prodAnt = productos[index];
-
-        const prodNuevo = { ...prodAnt, ...prod };
-
-        productos.splice(index, 1, prodNuevo);
-        await this.escribirArchivo(this.nombre, productos);
-
-        return prodNuevo;
-      } else {
-        throw new Error(`No se encontró ningún libro con el ID ${id}`);
-      }
-    } catch (err) {
-      throw err.message;
-    }
-  };
-
-  delete = async (id) => {
-    try {
-      const productos = await this.leerArchivo(this.nombre);
-      let prod = {};
-
-      const index = productos.findIndex((p) => p.id == id);
-
-      if (index == -1) {
-        throw new Error(`No se encontró ningún libro con el ID ${id}`);
-      }
-
-      prod = productos.splice(index, 1)[0];
-      await this.escribirArchivo(this.nombre, productos);
-      return prod;
-    } catch (err) {
-      throw err.message;
-    }
-  };
 }
 
-export default BookModel;
+export default ModelMongoDB

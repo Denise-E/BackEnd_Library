@@ -2,6 +2,8 @@ import express from "express";
 import BookRouter from "./router/books.js";
 import ReservationRouter from "./router/reservations.js";
 import UserRouter from "./router/users.js";
+import config from './config.js'
+import CnxMongoDB from './model/DBMongo.js'
 
 const app = express();
 app.use(express.urlencoded({ extended:true})); //Para forms
@@ -16,6 +18,13 @@ const routerUser = new UserRouter();
 app.use("/api/books", routerBook.start());
 app.use("/api/reservations", routerReservation.start());
 app.use("/api/users", routerUser.start());
+
+// -----------------------------------------------
+//        LISTEN DEL SERVIDOR EXPRESS
+// -----------------------------------------------
+if(config.MODO_PERSISTENCIA == 'MONGODB') {
+  await CnxMongoDB.conectar()
+}
 
 // Server
 const PORT = 8080;
