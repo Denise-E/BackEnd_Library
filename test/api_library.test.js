@@ -15,10 +15,9 @@ describe(' *** Test APIRestfull *** ', () => {
     describe('POST', () => {
         it('* Incorporación exitosa de un nuevo libro', async () => {
             const producto = book_generator.get_book()
-            console.log(producto)
 
             const response = await request.post('/api/books').send(producto)
-            expect(response.status).to.eql(200) // 201
+            expect(response.status).to.eql(201)
 
             const prodGuardado = response.body
             console.log(prodGuardado)

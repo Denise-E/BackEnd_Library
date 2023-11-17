@@ -21,9 +21,10 @@ class UserController {
       let user = req.body;
 
       const added = await this.service.add(user);
+      res.status(201)
       res.json(added);
-      //.redirect('/');
     } catch (error) {
+      res.status(400)
       console.log("Error al crear usuario: ", error);
     }
   };

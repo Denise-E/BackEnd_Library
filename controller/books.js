@@ -35,9 +35,10 @@ class BookController {
       let book = req.body;
 
       const added = await this.service.add(book);
+      res.status(201)
       res.json(added);
-      //.redirect('/');
     } catch (error) {
+      res.status(400)
       console.log("Error al crear libro: ", error);
     }
   };

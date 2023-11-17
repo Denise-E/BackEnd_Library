@@ -32,9 +32,10 @@ class ReservationController {
       let prod = req.body;
 
       const added = await this.service.add(prod);
+      res.status(201)
       res.json(added);
-      //.redirect('/');
     } catch (error) {
+      res.status(400)
       console.log("Error al crear reserva: ", error);
     }
   };
