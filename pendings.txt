@@ -8,5 +8,5 @@ Clase que viene
 
 ENDPOINTS:
 * GET reservas
-* POST libro
+* POST libro - DONE
 
