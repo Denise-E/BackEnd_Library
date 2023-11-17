@@ -55,9 +55,10 @@ class UserModel {
 
       prod.id = this.getNext_Id(productos);
 
-      prod.title = prod.title;
-      prod.autor = prod.autor;
-      prod.available_quantity = parseInt(prod.available_quantity);
+      prod.name = prod.name;
+      prod.email = prod.email;
+      prod.isAdmin = prod.isAdmin;
+      prod.password = prod.password;
 
       productos.push(prod);
       await this.escribirArchivo(this.nombre, productos);
