@@ -6,45 +6,45 @@ class ModelMongoDB {
     if (!CnxMongoDB.connection) return id ? {} : [];
 
     if (id) {
-      const producto = await CnxMongoDB.db
+      const user = await CnxMongoDB.db
         .collection("users")
         .findOne({ _id: new ObjectId(id) });
-      return producto;
+      return user;
     } else {
-      const productos = await CnxMongoDB.db
+      const users = await CnxMongoDB.db
         .collection("users")
         .find({})
         .toArray();
-      return productos;
+      return users;
     }
   };
 
-  add = async (producto) => {
+  add = async (user) => {
     if (!CnxMongoDB.connection) return {};
 
-    await CnxMongoDB.db.collection("users").insertOne(producto);
-    return producto;
+    await CnxMongoDB.db.collection("users").insertOne(user);
+    return user;
   };
 
-  update = async (id, producto) => {
+  update = async (id, user) => {
     if (!CnxMongoDB.connection) return {};
 
     await CnxMongoDB.db
       .collection("users")
-      .updateOne({ _id: new ObjectId(id) }, { $set: producto });
+      .updateOne({ _id: new ObjectId(id) }, { $set: user });
 
-    const productosActualizado = await this.obtenerProductos(id);
-    return productosActualizado;
+    const updated = await this.get(id);
+    return updated;
   };
 
   delete = async (id) => {
     if (!CnxMongoDB.connection) return {};
 
-    const productosBorrado = await this.obtenerProductos(id);
+    const deleted = await this.get(id);
     await CnxMongoDB.db
       .collection("users")
       .deleteOne({ _id: new ObjectId(id) });
-    return productosBorrado;
+    return deleted;
   };
 }
 

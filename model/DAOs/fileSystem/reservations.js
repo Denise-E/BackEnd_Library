@@ -2,46 +2,46 @@ import fs from "fs";
 
 class ReservationModel {
   constructor() {
-    this.nombre = "data/reservations.json";
+    this.name = "data/reservations.json";
   }
 
-  leerArchivo = async (nombre) => {
-    let productos = undefined;
+  leerArchivo = async (name) => {
+    let reservations = undefined;
 
     try {
-      productos = JSON.parse(await fs.promises.readFile(nombre, "utf8"));
+      reservations = JSON.parse(await fs.promises.readFile(name, "utf8"));
     } catch (error) {
-      throw new Error(`Error leyendo ${this.nombre}`);
+      throw new Error(`Error leyendo ${this.name}`);
     }
 
-    return productos;
+    return reservations;
   };
 
-  escribirArchivo = async (nombre, productos) => {
+  escribirArchivo = async (name, reservations) => {
     try {
       await fs.promises.writeFile(
-        nombre,
-        JSON.stringify(productos, null, "\t")
+        name,
+        JSON.stringify(reservations, null, "\t")
       );
     } catch (error) {
-      throw new Error(`Error escribiendo en ${this.nombre}`);
+      throw new Error(`Error escribiendo en ${this.name}`);
     }
   };
 
-  getNext_Id(palabras) {
-    let lg = palabras.length;
-    return lg ? parseInt(palabras[lg - 1].id) + 1 : 1;
+  getNext_Id(reservations) {
+    let lg = reservations.length;
+    return lg ? parseInt(reservations[lg - 1].id) + 1 : 1;
   }
 
   get = async (id) => {
     try {
-      const productos = await this.leerArchivo(this.nombre);
+      const reservations = await this.leerArchivo(this.name);
 
       if (id != undefined) {
-        const p = productos.find((p) => p.id == id);
+        const p = reservations.find((p) => p.id == id);
         return p || {};
       } else {
-        return productos;
+        return reservations;
       }
     } catch {
       return id ? {} : [];
@@ -50,53 +50,53 @@ class ReservationModel {
 
   get_by_user = async (id) => {
     try {
-      const productos = await this.leerArchivo(this.nombre);
+      const reservations = await this.leerArchivo(this.name);
 
       if (id != undefined) {
-        const p = productos.find((p) => p.id_client == id);
+        const p = reservations.find((p) => p.id_client == id);
         return p || {};
       } else {
-        return productos;
+        return reservations;
       }
     } catch {
       return id ? {} : [];
     }
   };
 
-  add = async (prod) => {
+  add = async (reservation) => {
     try {
-      const productos = await this.leerArchivo(this.nombre);
+      const reservations = await this.leerArchivo(this.name);
 
-      prod.id = this.getNext_Id(productos);
+      reservation.id = this.getNext_Id(reservations);
 
-      prod.id_client = prod.id_client;
-      prod.id_book = prod.id_book;
+      reservation.id_client = reservation.id_client;
+      reservation.id_book = reservation.id_book;
 
-      productos.push(prod);
-      await this.escribirArchivo(this.nombre, productos);
+      reservations.push(reservation);
+      await this.escribirArchivo(this.name, reservations);
 
-      return prod;
+      return reservation;
     } catch (err) {
       throw err.message;
     }
   };
 
-  update = async (id, prod) => {
+  update = async (id, reservation) => {
     try {
-      prod.id = parseInt(id);
-      const productos = await this.leerArchivo(this.nombre);
+      reservation.id = parseInt(id);
+      const reservations = await this.leerArchivo(this.name);
 
-      const index = productos.findIndex((p) => p.id == id);
+      const index = reservations.findIndex((p) => p.id == id);
 
       if (index != -1) {
-        const prodAnt = productos[index];
+        const old_res = reservations[index];
 
-        const prodNuevo = { ...prodAnt, ...prod };
+        const new_res = { ...old_res, ...reservation };
 
-        productos.splice(index, 1, prodNuevo);
-        await this.escribirArchivo(this.nombre, productos);
+        reservations.splice(index, 1, new_res);
+        await this.escribirArchivo(this.name, reservations);
 
-        return prodNuevo;
+        return new_res;
       } else {
         throw new Error(`No se encontró ningún libro con el ID ${id}`);
       }
@@ -107,19 +107,19 @@ class ReservationModel {
 
   delete = async (id) => {
     try {
-      const productos = await this.leerArchivo(this.nombre);
-      let prod = {};
+      const reservations = await this.leerArchivo(this.name);
+      let reservation = {};
 
-      const index = productos.findIndex((p) => p.id == id);
+      const index = reservations.findIndex((p) => p.id == id);
 
       if (index == -1) {
         throw new Error(`No se encontró ningún libro con el ID ${id}`);
       }
 
-      prod = productos.splice(index, 1)[0];
+      reservation = reservations.splice(index, 1)[0];
 
-      await this.escribirArchivo(this.nombre, productos);
-      return prod;
+      await this.escribirArchivo(this.name, reservations);
+      return reservation;
     } catch (err) {
       throw err.message;
     }

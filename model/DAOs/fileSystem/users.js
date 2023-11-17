@@ -2,88 +2,88 @@ import fs from "fs";
 
 class UserModel {
   constructor() {
-    this.nombre = "data/users.json";
+    this.name = "data/users.json";
   }
 
-  leerArchivo = async (nombre) => {
-    let productos = undefined;
+  leerArchivo = async (name) => {
+    let users = undefined;
 
     try {
-      productos = JSON.parse(await fs.promises.readFile(nombre, "utf8"));
+      users = JSON.parse(await fs.promises.readFile(name, "utf8"));
     } catch (error) {
-      throw new Error(`Error leyendo ${this.nombre}`);
+      throw new Error(`Error leyendo ${this.name}`);
     }
 
-    return productos;
+    return users;
   };
 
-  escribirArchivo = async (nombre, productos) => {
+  escribirArchivo = async (name, user) => {
     try {
       await fs.promises.writeFile(
-        nombre,
-        JSON.stringify(productos, null, "\t")
+        name,
+        JSON.stringify(user, null, "\t")
       );
     } catch (error) {
-      throw new Error(`Error escribiendo en ${this.nombre}`);
+      throw new Error(`Error escribiendo en ${this.name}`);
     }
   };
 
-  getNext_Id(palabras) {
-    let lg = palabras.length;
-    return lg ? parseInt(palabras[lg - 1].id) + 1 : 1;
+  getNext_Id(users) {
+    let lg = users.length;
+    return lg ? parseInt(users[lg - 1].id) + 1 : 1;
   }
 
   get = async (id) => {
     try {
-      const productos = await this.leerArchivo(this.nombre);
+      const users = await this.leerArchivo(this.name);
 
       if (id != undefined) {
-        const p = productos.find((p) => p.id == id);
+        const p = users.find((p) => p.id == id);
         return p || {};
       } else {
-        return productos;
+        return users;
       }
     } catch {
       return id ? {} : [];
     }
   };
 
-  add = async (prod) => {
+  add = async (user) => {
     try {
-      const productos = await this.leerArchivo(this.nombre);
+      const users = await this.leerArchivo(this.name);
 
-      prod.id = this.getNext_Id(productos);
+      user.id = this.getNext_Id(users);
 
-      prod.name = prod.name;
-      prod.email = prod.email;
-      prod.isAdmin = prod.isAdmin;
-      prod.password = prod.password;
+      user.name = user.name;
+      user.email = user.email;
+      user.isAdmin = user.isAdmin;
+      user.password = user.password;
 
-      productos.push(prod);
-      await this.escribirArchivo(this.nombre, productos);
+      users.push(user);
+      await this.escribirArchivo(this.name, users);
 
-      return prod;
+      return user;
     } catch (err) {
       throw err.message;
     }
   };
 
-  update = async (id, prod) => {
+  update = async (id, user) => {
     try {
-      prod.id = parseInt(id);
-      const productos = await this.leerArchivo(this.nombre);
+      user.id = parseInt(id);
+      const users = await this.leerArchivo(this.name);
 
-      const index = productos.findIndex((p) => p.id == id);
+      const index = users.findIndex((p) => p.id == id);
 
       if (index != -1) {
-        const prodAnt = productos[index];
+        const old_user = users[index];
 
-        const prodNuevo = { ...prodAnt, ...prod };
+        const new_user = { ...old_user, ...user };
 
-        productos.splice(index, 1, prodNuevo);
-        await this.escribirArchivo(this.nombre, productos);
+        users.splice(index, 1, new_user);
+        await this.escribirArchivo(this.name, users);
 
-        return prodNuevo;
+        return new_user;
       } else {
         throw new Error(`No se encontró ningún libro con el ID ${id}`);
       }
@@ -94,18 +94,18 @@ class UserModel {
 
   delete = async (id) => {
     try {
-      const productos = await this.leerArchivo(this.nombre);
-      let prod = {};
+      const users = await this.leerArchivo(this.name);
+      let user = {};
 
-      const index = productos.findIndex((p) => p.id == id);
+      const index = users.findIndex((p) => p.id == id);
 
       if (index == -1) {
         throw new Error(`No se encontró ningún libro con el ID ${id}`);
       }
 
-      prod = productos.splice(index, 1)[0];
-      await this.escribirArchivo(this.nombre, productos);
-      return prod;
+      user = users.splice(index, 1)[0];
+      await this.escribirArchivo(this.name, users);
+      return user;
     } catch (err) {
       throw err.message;
     }

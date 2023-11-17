@@ -6,45 +6,45 @@ class ModelMongoDB {
     if (!CnxMongoDB.connection) return id ? {} : [];
 
     if (id) {
-      const producto = await CnxMongoDB.db
+      const book = await CnxMongoDB.db
         .collection("books")
         .findOne({ _id: new ObjectId(id) });
-      return producto;
+      return book;
     } else {
-      const productos = await CnxMongoDB.db
+      const books = await CnxMongoDB.db
         .collection("books")
         .find({})
         .toArray();
-      return productos;
+      return books;
     }
   };
 
-  add = async (producto) => {
+  add = async (book) => {
     if (!CnxMongoDB.connection) return {};
 
-    await CnxMongoDB.db.collection("books").insertOne(producto);
-    return producto;
+    await CnxMongoDB.db.collection("books").insertOne(book);
+    return book;
   };
 
-  update = async (id, producto) => {
+  update = async (id, books) => {
     if (!CnxMongoDB.connection) return {};
 
     await CnxMongoDB.db
       .collection("books")
-      .updateOne({ _id: new ObjectId(id) }, { $set: producto });
+      .updateOne({ _id: new ObjectId(id) }, { $set: books });
 
-    const productosActualizado = await this.obtenerProductos(id);
-    return productosActualizado;
+    const updated = await this.get(id);
+    return updated;
   };
 
   delete = async (id) => {
     if (!CnxMongoDB.connection) return {};
 
-    const productosBorrado = await this.obtenerProductos(id);
+    const deleted = await this.get(id);
     await CnxMongoDB.db
       .collection("books")
       .deleteOne({ _id: new ObjectId(id) });
-    return productosBorrado;
+    return deleted;
   };
 }
 

@@ -6,45 +6,45 @@ class ModelMongoDB {
     if (!CnxMongoDB.connection) return id ? {} : [];
 
     if (id) {
-      const producto = await CnxMongoDB.db
+      const reservation = await CnxMongoDB.db
         .collection("reservations")
         .findOne({ _id: new ObjectId(id) });
-      return producto;
+      return reservation;
     } else {
-      const productos = await CnxMongoDB.db
+      const reservations = await CnxMongoDB.db
         .collection("reservations")
         .find({})
         .toArray();
-      return productos;
+      return reservations;
     }
   };
 
-  add = async (producto) => {
+  add = async (reservation) => {
     if (!CnxMongoDB.connection) return {};
 
-    await CnxMongoDB.db.collection("reservations").insertOne(producto);
-    return producto;
+    await CnxMongoDB.db.collection("reservations").insertOne(reservation);
+    return reservation;
   };
 
-  update = async (id, producto) => {
+  update = async (id, reservation) => {
     if (!CnxMongoDB.connection) return {};
 
     await CnxMongoDB.db
       .collection("reservations")
-      .updateOne({ _id: new ObjectId(id) }, { $set: producto });
+      .updateOne({ _id: new ObjectId(id) }, { $set: reservation });
 
-    const productosActualizado = await this.obtenerProductos(id);
-    return productosActualizado;
+    const updated = await this.get(id);
+    return updated;
   };
 
   delete = async (id) => {
     if (!CnxMongoDB.connection) return {};
 
-    const productosBorrado = await this.obtenerProductos(id);
+    const deleted = await this.get(id);
     await CnxMongoDB.db
       .collection("reservations")
       .deleteOne({ _id: new ObjectId(id) });
-    return productosBorrado;
+    return deleted;
   };
 }
 
