@@ -15,12 +15,12 @@ class ReservationService {
     return await this.model.get_by_user(id);
   };
 
-  add = async (prod) => {
-    return await this.model.add(prod);
+  add = async (res) => {
+    return await this.model.add(res);
   };
 
-  update = async (id, prod) => {
-    return await this.model.update(id, prod);
+  update = async (id, res) => {
+    return await this.model.update(id, res);
   };
 
   delete = async (id) => {

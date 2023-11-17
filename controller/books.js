@@ -32,13 +32,20 @@ class BookController {
 
   add = async (req, res) => {
     try {
+      console.log("METHOD")
       let book = req.body;
 
       const added = await this.service.add(book);
-      res.status(201)
+
+      if(added) {
+        res.status(201)
+        
+      }else{
+        res.status(400)
+      }
       res.json(added);
+      
     } catch (error) {
-      res.status(400)
       console.log("Error al crear libro: ", error);
     }
   };

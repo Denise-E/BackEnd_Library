@@ -1,4 +1,5 @@
 import BookModel from "../model/DAOs/books.js";
+import { validate } from "./validations/books_validations.js"
 
 class BookService {
   constructor() {
@@ -9,12 +10,18 @@ class BookService {
     return await this.model.get(id);
   };
 
-  add = async (prod) => {
-    return await this.model.add(prod);
+  add = async (book) => {
+    const res = validate(book)
+    if(res.result) {
+      return await this.model.add(book);
+    }else{
+        console.log(res.error)
+        return undefined
+    }
   };
 
-  update = async (id, prod) => {
-    return await this.model.update(id, prod);
+  update = async (id, book) => {
+    return await this.model.update(id, book);
   };
 
   delete = async (id) => {

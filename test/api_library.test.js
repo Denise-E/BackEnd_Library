@@ -14,17 +14,29 @@ describe(' *** Test APIRestfull *** ', () => {
 
     describe('POST', () => {
         it('* Incorporación exitosa de un nuevo libro', async () => {
-            const producto = book_generator.get_book()
+            const book = book_generator.get_book()
 
-            const response = await request.post('/api/books').send(producto)
+            const response = await request.post('/api/books').send(book)
             expect(response.status).to.eql(201)
 
-            const prodGuardado = response.body
-            console.log(prodGuardado)
-            expect(prodGuardado).to.include.keys('title','author','stock')
-            expect(prodGuardado.title).to.eql(producto.title)
-            expect(prodGuardado.author).to.eql(producto.author)
-            expect(prodGuardado.stock).to.eql(producto.stock)
+            const added_book = response.body
+            
+            expect(added_book).to.include.keys('title','author','stock')
+            expect(added_book.title).to.eql(book.title)
+            expect(added_book.author).to.eql(book.author)
+            expect(added_book.stock).to.eql(book.stock)
+            
+            //console.log(added_book)
+        })
+
+        it('* Incorporación fallida de un nuevo libro', async () => {
+            const book = book_generator.get_incorrect_book()
+            const response = await request.post('/api/books').send(book)
+
+            expect(response.status).to.eql(400) 
+
+            const not_added = response.body
+            console.log(not_added)
         })
     })
 })

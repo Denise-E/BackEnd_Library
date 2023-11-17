@@ -1,12 +1,7 @@
-Clase que viene 
 
-* Implementar BD
+PENDIENTE
 
 * Listado reservas pasar logica del html al servicio
 * Vistas reservas
-* CHEQUEAR CREACION USUARIO
-
-ENDPOINTS:
-* GET reservas
-* POST libro - DONE
-
+* Test GET reservas
+* Validar campos en inserts y updates con JOI (hecho para add de libros)
