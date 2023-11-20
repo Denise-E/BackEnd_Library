@@ -19,6 +19,9 @@
     "joi": "^17.11.0",
     "mocha": "^10.2.0",
     "mongodb": "^6.3.0",
-    "supertest": "^6.3.3"
+    "openapi": "^1.0.1",
+    "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }

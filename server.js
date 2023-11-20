@@ -4,6 +4,7 @@ import ReservationRouter from "./router/reservations.js";
 import UserRouter from "./router/users.js";
 import config from "./config.js";
 import CnxMongoDB from "./model/DBMongo.js";
+import swagger from "./swagger.js";
 
 const app = express();
 const routerBook = new BookRouter();
@@ -29,7 +30,9 @@ if (config.MODO_PERSISTENCIA == "MONGODB") {
 // Server
 const PORT = 8080;
 
-const server = app.listen(PORT, () =>
-  console.log(`Servidor escuchando en http://localhost:${PORT}`)
-);
+const server = app.listen( PORT, () => {
+  console.log(`Servidor escuchando en http://localhost:${PORT}`),
+  swagger.swaggerDocs(app, PORT)
+});
+
 server.on("error", (err) => console.log(`Error en servidor ${err.message}`));
