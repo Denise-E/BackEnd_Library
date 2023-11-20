@@ -11,32 +11,28 @@
 <body>
     <header>
         <nav>
-            <a href="index.html">Todos los libros</a>
-            <a href="./books/agregarLibro.html">Agregar Libro</a>
-            <a href="./books/librosSugeridos.html">Sugeridos</a>
-            <a href="./users/usuarios.html">Usuarios</a>
-            <a href="./reservations/reservas.html">Reservas</a>
+            <a href="../index.html">Todos los libros</a>
+            <a href="agregarLibro.html">Agregar Libro</a>
+            <a href="librosSugeridos.html">Sugeridos</a>
+            <a href="../users/usuarios.html">Usuarios</a>
+            <a href="../reservations/reservas.html">Reservas</a>
+
         </nav>
     </header>
 
     <main id="app" class="container mt-5" style="text-align: center">
+        <h1>Libros Sugeridos:</h1>
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Título</th>
                     <th scope="col">Autor</th>
-                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="l in lista">
                     <td>{{ l.title }}</td>
                     <td>{{ l.author }}</td>
-                    <td>
-                        <button class="btn btn-success" @click="reservar(l._id)">Reservar</button>
-                        <button class="btn btn-primary" @click="editarLibro(l._id)">Editar Libro</button>
-                        <button class="btn btn-danger" @click="eliminarLibro(l._id)">Eliminar</button>
-                    </td>
                 </tr>
             </tbody>
         </table>
@@ -57,42 +53,19 @@ createApp({
     return {
         lista: [],
         error: "",
-      
         }
     },
   methods:{
     loadData(){
-        fetch('api/books/')
-        .then(res => res.json())
-        .then(data => {
-          this.lista = [...data]
-          console.log(data);
-          }
-        )
-        .catch(err => this.error = err)
-    },
-    editarLibro(id) {
-    window.location.href = `./books/editarLibro.html?id=${id}`;
-    },
-
-    eliminarLibro(id) {
-        fetch(`http://localhost:8080/api/books/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                }},)
+        fetch(`http://localhost:8080/api/books/suggested`)
         .then(res => res.json())
         .then(data => {
           console.log(data);
+          this.lista = data
           }
         )
         .catch(err => this.error = err)
-        this.loadData()
-    },
-
-    reservar(id) {
-    window.location.href = `./reservations/agregarReserva.html?id=${id}`;
-    },
+    }
   },
   mounted(){
     this.loadData()
