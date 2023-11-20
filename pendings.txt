@@ -1,9 +1,16 @@
 
 PENDIENTE
 
-* Listado reservas pasar logica del html al servicio
-* Vistas reservas
-* Test GET reservas - Falta caso no exitoso
-* Validar campos en inserts y updates con JOI:
+* Logica reservas mostrando datos (x2 rutas GET), edit y delete - ARI 
+* Vistas faltantes: Edicion libros y edicion usuarios - ARI
+* Logica al eliminar y editar - hacerlo igual para todos - CARO
+* Header - CARO
+* Mover vistas a la carpeta correspondiente / ajustar hrefs - CARO
+* Listado sugerencias - /suggested - CARO
+* Cambiar boton "Reservar" o "No disponible" dependiendo stock en index.html
+
+
+* Test GET reservas - Falta caso no exitoso - DENU
+* Validar campos en inserts y updates con JOI: - IVI (BOOKS agregar en update)
     - Hecho para POST de libros (usado en test). 
-    - Hacer dentro de la carpeta de servicios (+ MANEJO DE ERRORES en controlador)
+    - Hacer dentro de la carpeta de servicios (+ MANEJO DE ERRORES en controlador
