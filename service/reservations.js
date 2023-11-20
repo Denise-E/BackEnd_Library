@@ -11,10 +11,6 @@ class ReservationService {
     return await this.model.get(id);
   };
 
-  get_by_user = async (id) => {
-    return await this.model.get_by_user(id);
-  };
-
   add = async (res) => {
     return await this.model.add(res);
   };

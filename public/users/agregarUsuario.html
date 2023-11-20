@@ -11,9 +11,9 @@
 <body>
     <header>
         <nav>
-            <a href="index.html">Todos los libros</a>
-            <a href="agregarLibro.html">Agregar Libro</a>
-            <a href="usuarios.html">Usuarios</a>
+            <a href="../index.html">Todos los libros</a>
+            <a href="../books/agregarLibro.html">Agregar Libro</a>
+            <a href="../users/usuarios.html">Usuarios</a>
         </nav>
     </header>
 
@@ -35,7 +35,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input v-model="nuevoUser.password" name="password" type="number" class="form-control" id="password" required>
+                    <input v-model="nuevoUser.password" name="password" type="text" class="form-control" id="password" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar User</button>
             </form>

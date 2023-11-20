@@ -15,17 +15,6 @@ class ReservationController {
       console.log("Error al obtener reservas: ", error);
     }
   };
-  get_by_user = async (req, res) => { 
-    // Searchs for all reservations of an specific user, by user id
-    try {
-      const { id } = req.params;
-
-      let user_reservations = await this.service.get_by_user(id);
-      res.json(user_reservations);
-    } catch (error) {
-      console.log("Error al obtener reserva: ", error);
-    }
-  };
 
   add = async (req, res) => {
     try {
