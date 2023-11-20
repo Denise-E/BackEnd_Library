@@ -100,7 +100,7 @@
 	{
 		"name": "Martina Suarez",
 		"email": "martina@libreria.com.ar",
-		"password": 1234,
+		"password": 123456,
 		"admin": true,
 		"id": 18,
 		"available_quantity": null
