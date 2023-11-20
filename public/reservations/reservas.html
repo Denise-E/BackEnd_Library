@@ -35,6 +35,7 @@
                     <td>{{ r.libro }}</td>
                     <td>
                         <button class="btn btn-danger" @click="eliminarReserva(r._id)">Eliminar</button>
+                        <button class="btn btn-danger" @click="editarReserva(r._id)">Editar Reserva</button>
                     </td>
                 </tr>
             </tbody>
@@ -72,7 +73,21 @@ createApp({
     },
 
     eliminarReserva(id) {
-    window.location.href = `eliminarReserva.html?id=${id}`;
+        fetch(`http://localhost:8080/api/reservations/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }},)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          }
+        )
+        .catch(err => this.error = err)
+        this.loadData()
+    },
+    editarReserva(id){
+        window.location.href = `editarReserva.html?id=${id}`;
     }
   },
   mounted(){

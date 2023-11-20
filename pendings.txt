@@ -2,9 +2,8 @@
 PENDIENTE
 
 * Logica reservas mostrando datos (x2 rutas GET), edit y delete - ARI 
-* Vistas faltantes: Edicion libros y edicion usuarios - ARI
+* Vistas faltantes: Edicion libros, edicion usuarios y edicion de reservas- ARI
 * Logica al eliminar y editar - hacerlo igual para todos - CARO
-* Mover vistas a la carpeta correspondiente / ajustar hrefs - CARO
 * Listado sugerencias - /suggested - CARO
 * Cambiar boton "Reservar" o "No disponible" dependiendo stock en index.html
 

@@ -33,7 +33,7 @@
                     <td>{{ l.author }}</td>
                     <td>
                         <button class="btn btn-success" @click="reservar(l._id)">Reservar</button>
-                        <button class="btn btn-primary" @click="verDetalles(l._id)">Ver detalles Libro</button>
+                        <button class="btn btn-primary" @click="editarLibro(l._id)">Editar Libro</button>
                         <button class="btn btn-danger" @click="eliminarLibro(l._id)">Eliminar</button>
                     </td>
                 </tr>
@@ -56,7 +56,7 @@ createApp({
     return {
         lista: [],
         error: "",
-        book: {}
+      
         }
     },
   methods:{
@@ -70,8 +70,8 @@ createApp({
         )
         .catch(err => this.error = err)
     },
-    verDetalles(id) {
-    window.location.href = `./books/libroPorId.html?id=${id}`;
+    editarLibro(id) {
+    window.location.href = `./books/editarLibro.html?id=${id}`;
     },
 
     eliminarLibro(id) {
@@ -83,7 +83,6 @@ createApp({
         .then(res => res.json())
         .then(data => {
           console.log(data);
-          this.book = data
           }
         )
         .catch(err => this.error = err)
