@@ -33,8 +33,8 @@
                     <td>{{ u.name }}</td>
                     <td>{{ u.email }}</td>
                     <td>
-                        <button class="btn btn-primary" @click="verDetalles(u.id)">Ver detalles</button>
-                        <button class="btn btn-danger" @click="eliminarLibro(u.id)">Eliminar</button>
+                        <button class="btn btn-primary" @click="verDetalles(u._id)">Ver detalles</button>
+                        <button class="btn btn-danger" @click="eliminarLibro(u._id)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>

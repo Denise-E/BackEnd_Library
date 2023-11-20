@@ -30,11 +30,12 @@
             </thead>
             <tbody>
                 <tr v-for="l in lista">
-                    <td>{{ l.titulo }}</td>
-                    <td>{{ l.autor }}</td>
+                    <td>{{ l.title }}</td>
+                    <td>{{ l.author }}</td>
                     <td>
-                        <button class="btn btn-primary" @click="verDetalles(l.id)">Ver detalles</button>
-                        <button class="btn btn-danger" @click="eliminarLibro(l.id)">Eliminar</button>
+                        <button class="btn btn-success" @click="reservar(l._id)">Reservar</button>
+                        <button class="btn btn-primary" @click="verDetalles(l._id)">Ver detalles Libro</button>
+                        <button class="btn btn-danger" @click="eliminarLibro(l._id)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>
@@ -75,6 +76,10 @@ createApp({
 
     eliminarLibro(id) {
     window.location.href = `libroEliminado.html?id=${id}`;
+    },
+
+    reservar(id) {
+    window.location.href = `agregarReserva.html?id=${id}`;
     },
   },
   mounted(){

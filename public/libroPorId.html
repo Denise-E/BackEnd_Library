@@ -20,9 +20,9 @@
         <h1>Detalles libro por ID</h1>
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">{{ book.titulo }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ `Author: ${book.autor}` }}</h6>
-            <p class="card-text">{{ `Available Quantity: ${book.available_quantity}` }}</p>
+            <h5 class="card-title">{{ book.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ `Author: ${book.author}` }}</h6>
+            <p class="card-text">{{ `Available Quantity: ${book.stock}` }}</p>
           </div>
         </div>
         
@@ -47,6 +47,7 @@ createApp({
     },
   methods:{
     loadData(){
+      console.log(this.bookId);
         fetch(`http://localhost:8080/api/books/${this.bookId}`)
         .then(res => res.json())
         .then(data => {

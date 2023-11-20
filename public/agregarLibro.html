@@ -21,16 +21,16 @@
             <h2>Agregar Libro</h2>
             <form @submit.prevent="agregarLibro" method="post">
                 <div class="mb-3">
-                    <label for="titulo" class="form-label">Título</label>
-                    <input v-model="nuevoLibro.titulo" name="titulo" type="text" class="form-control" id="titulo" required>
+                    <label for="title" class="form-label">Título</label>
+                    <input v-model="nuevoLibro.title" name="title" type="text" class="form-control" id="title" required>
                 </div>
                 <div class="mb-3">
-                    <label for="autor" class="form-label">Autor</label>
-                    <input v-model="nuevoLibro.autor" name="autor" type="text" class="form-control" id="autor" required>
+                    <label for="author" class="form-label">Autor</label>
+                    <input v-model="nuevoLibro.author" name="author" type="text" class="form-control" id="author" required>
                 </div>
                 <div class="mb-3">
-                    <label for="available_quantity" class="form-label">Stock</label>
-                    <input v-model="nuevoLibro.available_quantity" name="available_quantity" type="number" class="form-control" id="stock" required>
+                    <label for="stock" class="form-label">Stock</label>
+                    <input v-model="nuevoLibro.stock" name="stock" type="number" class="form-control" id="stock" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Agregar Libro</button>
             </form>
@@ -39,9 +39,9 @@
             <h1>Libro agregado:</h1>
             <div class="card">
             <div class="card-body">
-                <h5 class="card-title">{{ nuevoLibro.titulo }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ `Author: ${nuevoLibro.autor}` }}</h6>
-                <p class="card-text">{{ `Available Quantity: ${nuevoLibro.available_quantity}` }}</p>
+                <h5 class="card-title">{{ nuevoLibro.title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ `Author: ${nuevoLibro.author}` }}</h6>
+                <p class="card-text">{{ `Available Quantity: ${nuevoLibro.stock}` }}</p>
             </div>
             </div>
             
@@ -58,9 +58,9 @@
             data() {
                 return {
                     nuevoLibro: {
-                        titulo: '',
-                        autor: '',
-                        available_quantity: null,
+                        title: '',
+                        author: '',
+                        stock: null,
                     },
                     agregado: false
                 };

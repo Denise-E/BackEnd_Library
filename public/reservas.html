@@ -19,7 +19,7 @@
     </header>
 
     <main id="app" class="container mt-5" style="text-align: center">
-        <button class="btn btn-primary" @click="agregarUsuario()">Agregar Usuario</button>
+        <h1>Reservas</h1>
         <br>
         <table class="table table-striped">
             <thead>
@@ -31,11 +31,10 @@
             </thead>
             <tbody>
                 <tr v-for="r in reservations">
-                    <td>{{ r.client }}</td>
-                    <td>{{ r.book }}</td>
+                    <td>{{ r.cliente }}</td>
+                    <td>{{ r.libro }}</td>
                     <td>
-                        <button class="btn btn-primary" @click="verDetalles(r.id)">Ver detalles</button>
-                        <button class="btn btn-danger" @click="eliminarLibro(r.id)">Eliminar</button>
+                        <button class="btn btn-danger" @click="eliminarReserva(r._id)">Eliminar</button>
                     </td>
                 </tr>
             </tbody>
@@ -55,60 +54,25 @@ const { createApp, ref } = Vue
 createApp({
   data() {
     return {
-        lista: [],
         error: "",
-        users:[],
-        books:[],
         reservations:[],
         }
     },
   methods:{
     loadData(){ 
-        
-        this.loadBooks();
-        this.loadUsers();
-        
-        fetch('api/reservations/')
+        fetch('api/reservations/all')
         .then(res => res.json())
         .then(data => {
-          data.forEach(e => {
-            let client = this.users.find(client => client.id == e.id_client)
-            let book = this.books.find(book => book.id == e.id_book)
-            this.reservations.push({ client: client.name, book: book.titulo, id: e.id, idBook: e.id_book })
-          })
-        })
-        .catch(err => this.error = err)
-
-    },
-    loadUsers(){
-        fetch('api/users/')
-        .then(res => res.json())
-        .then(data => {
-          this.users = [...data]
-          console.log(data)
+          this.reservations = [...data]
+          console.log(data);
           }
         )
         .catch(err => this.error = err)
-    },
-    loadBooks(){
-        fetch('api/books/')
-        .then(res => res.json())
-        .then(data => {
-            this.books = [...data]
-            console.log(data)
-          }
-        )
-        .catch(err => this.error = err)
-    },
-    verDetalles(id) {
-    window.location.href = `usuarioPorId.html?id=${id}`;
+
     },
 
-    eliminarLibro(id) {
-    window.location.href = `usuarioEliminado.html?id=${id}`;
-    },
-    agregarUsuario(){
-        window.location.href = 'agregarUsuario.html';
+    eliminarReserva(id) {
+    window.location.href = `eliminarReserva.html?id=${id}`;
     }
   },
   mounted(){
