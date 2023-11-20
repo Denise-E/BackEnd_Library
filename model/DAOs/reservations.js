@@ -8,7 +8,7 @@ class ModelMongoDB {
     if (id) {
       const reservation = await CnxMongoDB.db
         .collection("reservations")
-        .findOne({ _id: new ObjectId(id) });
+        .findOne({ _id: new ObjectId(id) })
       return reservation;
     } else {
       const reservations = await CnxMongoDB.db

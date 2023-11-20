@@ -35,8 +35,8 @@
                     <td>{{ r.cliente }}</td>
                     <td>{{ r.libro }}</td>
                     <td>
+                        <button class="btn btn-primary" @click="editarReserva(r._id)">Editar Reserva</button>
                         <button class="btn btn-danger" @click="eliminarReserva(r._id)">Eliminar</button>
-                        <button class="btn btn-danger" @click="editarReserva(r._id)">Editar Reserva</button>
                     </td>
                 </tr>
             </tbody>
@@ -62,7 +62,7 @@ createApp({
     },
   methods:{
     loadData(){ 
-        fetch('../api/reservations/all')
+        fetch('../api/reservations/')
         .then(res => res.json())
         .then(data => {
           this.reservations = [...data]
@@ -81,6 +81,7 @@ createApp({
                 }},)
         .then(res => res.json())
         .then(data => {
+            location.reload();
           console.log(data);
           }
         )
