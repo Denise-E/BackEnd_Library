@@ -9,34 +9,35 @@ class UserController {
     try {
       const { id } = req.params;
 
-      let productos = await this.service.get(id);
-      res.json(productos);
+      let users = await this.service.get(id);
+      res.json(users);
     } catch (error) {
-      console.log("error al obtener datos ", error);
+      console.log("Error al obtener usuarios: ", error);
     }
   };
 
   add = async (req, res) => {
     try {
-      let prod = req.body;
+      let user = req.body;
 
-      const added = await this.service.add(prod);
+      const added = await this.service.add(user);
+      res.status(201)
       res.json(added);
-      //.redirect('/');
     } catch (error) {
-      console.log("error al crear", error);
+      res.status(400)
+      console.log("Error al crear usuario: ", error);
     }
   };
 
   update = async (req, res) => {
     try {
       const { id } = req.params;
-      const prod = req.body;
+      const user = req.body;
 
-      const producto = await this.service.update(id, prod);
-      res.json(producto);
+      const updated = await this.service.update(id, user);
+      res.json(updated);
     } catch (error) {
-      console.log("error al actualizar ", error);
+      console.log("Error al actualizar usuario: ", error);
     }
   };
 
@@ -44,10 +45,10 @@ class UserController {
     try {
       const { id } = req.params;
 
-      const prod = await this.service.delete(id);
-      res.json(prod);
+      const deleted = await this.service.delete(id);
+      res.json(deleted);
     } catch (error) {
-      console.log("error al eliminar s", error);
+      console.log("Error al eliminar usuario: ", error);
     }
   };
 }

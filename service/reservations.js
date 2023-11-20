@@ -15,23 +15,25 @@ class ReservationService {
     return await this.model.get_by_user(id);
   };
 
-  add = async (prod) => {
-    return await this.model.add(prod);
+  add = async (res) => {
+    return await this.model.add(res);
   };
 
-  update = async (id, prod) => {
-    return await this.model.update(id, prod);
+  update = async (id, res) => {
+    return await this.model.update(id, res);
   };
 
-  delete = async (id) => { 
-    const res = await this.model.get(id)
-    const book = await this.booksService.get(res.id_book)
-    book.available_quantity += 1
-    await this.booksService.update(book.id, book) 
+  delete = async (id) => {
+    const res = await this.model.get(id);
 
+    // Book quantity update
+    const book = await this.booksService.get(res.id_book);
+    book.available_quantity += 1;
+    await this.booksService.update(book.id, book);
+
+    // When the book is returned, the reservation is deleted
     return await this.model.delete(id);
   };
-
 }
 
 export default ReservationService;

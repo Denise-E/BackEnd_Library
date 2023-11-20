@@ -5,7 +5,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/api_library.test.js --timeout 10000",
     "watch": "nodemon server.js",
     "start": "node server.js"
   },
@@ -13,6 +13,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "@faker-js/faker": "^8.3.1",
+    "chai": "^4.3.10",
+    "express": "^4.18.2",
+    "joi": "^17.11.0",
+    "mocha": "^10.2.0",
+    "mongodb": "^6.3.0",
+    "openapi": "^1.0.1",
+    "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0"
   }
 }

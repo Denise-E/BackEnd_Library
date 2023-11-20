@@ -9,18 +9,17 @@ class UserService {
     return await this.model.get(id);
   };
 
-  add = async (prod) => {
-    return await this.model.add(prod);
+  add = async (user) => {
+    return await this.model.add(user);
   };
 
-  update = async (id, prod) => {
-    return await this.model.update(id, prod);
+  update = async (id, user) => {
+    return await this.model.update(id, user);
   };
 
   delete = async (id) => {
     return await this.model.delete(id);
   };
-
 }
 
 export default UserService;

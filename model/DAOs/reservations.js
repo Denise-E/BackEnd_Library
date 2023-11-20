@@ -1,71 +1,41 @@
-import fs from "fs";
+import { ObjectId } from "mongodb";
+import CnxMongoDB from "../DBMongo.js";
 
-class ReservationModel {
-  constructor() {
-    this.nombre = "data/reservations.json";
-  }
-
-  leerArchivo = async (nombre) => {
-    let productos = undefined;
-
-    try {
-      productos = JSON.parse(await fs.promises.readFile(nombre, "utf8"));
-    } catch (error) {
-      throw new Error(`Error leyendo ${this.nombre}`);
-    }
-
-    return productos;
-  };
-
-  escribirArchivo = async (nombre, productos) => {
-    try {
-      await fs.promises.writeFile(
-        nombre,
-        JSON.stringify(productos, null, "\t")
-      );
-    } catch (error) {
-      throw new Error(`Error escribiendo en ${this.nombre}`);
-    }
-  };
-
-  getNext_Id(palabras) {
-    let lg = palabras.length;
-    return lg ? parseInt(palabras[lg - 1].id) + 1 : 1;
-  }
-
+class ModelMongoDB {
   get = async (id) => {
-    try {
-      const productos = await this.leerArchivo(this.nombre);
+    if (!CnxMongoDB.connection) return id ? {} : [];
 
-      if (id != undefined) {
-        const p = productos.find((p) => p.id == id);
-        return p || {};
-      } else {
-        return productos;
-      }
-    } catch {
-      return id ? {} : [];
-    }
-  };
-
-  get_by_user = async (id) => {
-    try {
-      const productos = await this.leerArchivo(this.nombre);
-
-      if (id != undefined) {
-        const p = productos.find((p) => p.id_client == id);
-        return p || {};
-      } else {
-        return productos;
-      }
-    } catch {
-      return id ? {} : [];
+    if (id) {
+      const reservation = await CnxMongoDB.db
+        .collection("reservations")
+        .findOne({ _id: new ObjectId(id) });
+      return reservation;
+    } else {
+      const reservations = await CnxMongoDB.db
+        .collection("reservations")
+        .find({})
+        .toArray();
+      return reservations;
     }
   };
 
 
   add = async (prod) => {
     try {
+
+      /* Valido la cantidad de campos ingresados
+      if(Object.keys(number).length > 1){ 
+        return `Debe ingresar unicamente el campo numero`;
+      }
+
+      Valido los campos ingresados, las keys
+      if (
+        prod["titulo"] == undefined ||
+        prod["autor"] == undefined ||
+        prod["anio"] == undefined
+      ) {
+        return `Debe ingresar todos los datos`;
+      } */
 
       const productos = await this.leerArchivo(this.nombre);
 
@@ -110,24 +80,14 @@ class ReservationModel {
   };
 
   delete = async (id) => {
-    try {
-      const productos = await this.leerArchivo(this.nombre);
-      let prod = {};
+    if (!CnxMongoDB.connection) return {};
 
-      const index = productos.findIndex((p) => p.id == id);
-
-      if (index == -1) {
-        throw new Error(`No se encontró ningún libro con el ID ${id}`);
-      }
-
-      prod = productos.splice(index, 1)[0];
-
-      await this.escribirArchivo(this.nombre, productos);
-      return prod;
-    } catch (err) {
-      throw err.message;
-    }
+    const deleted = await this.get(id);
+    await CnxMongoDB.db
+      .collection("reservations")
+      .deleteOne({ _id: new ObjectId(id) });
+    return deleted;
   };
 }
 
-export default ReservationModel;
+export default ModelMongoDB;
