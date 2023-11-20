@@ -5,12 +5,18 @@ import book_generator from './generator/book_generator.js'
 const request = supertest('http://127.0.0.1:8080')
 
 describe(' *** Test APIRestfull *** ', () => {
-    /* describe('GET', () => {
-        it('debería retornar un status 200', async () => {
-            const reponse = await request.get('/api/productos')
-            expect(reponse.status).to.eql(200)
+    describe('GET', () => {
+        it('Obtención exitosa del listado de reservas', async () => {
+            const response = await request.get('/api/reservations')
+            expect(response.status).to.eql(200)
+
+            const added_book = response.body
+
+            added_book.forEach(element => {
+                expect(element).to.include.keys('_id','id_book','id_client')
+            });
         })
-    }) */
+    })
 
     describe('POST', () => {
         it('* Incorporación exitosa de un nuevo libro', async () => {
