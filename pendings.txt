@@ -3,8 +3,6 @@ PENDIENTE
 
 * Logica reservas mostrando datos (x2 rutas GET), edit y delete - ARI 
 * Vistas faltantes: Edicion libros, edicion usuarios y edicion de reservas- ARI
-* Listado sugerencias - /suggested - CARO
-* Cambiar boton "Reservar" o "No disponible" dependiendo stock en index.html
 
 
 * Test GET reservas - Falta caso no exitoso - DENU
