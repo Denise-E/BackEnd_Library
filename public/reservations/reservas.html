@@ -14,7 +14,7 @@
             <a href="../index.html">Todos los libros</a>
             <a href="../books/agregarLibro.html">Agregar Libro</a>
             <a href="../users/usuarios.html">Usuarios</a>
-            <a href="../reservations/reservas.html">Reservas</a>
+            <a href="reservas.html">Reservas</a>
         </nav>
     </header>
 
@@ -60,7 +60,7 @@ createApp({
     },
   methods:{
     loadData(){ 
-        fetch('api/reservations/all')
+        fetch('../api/reservations/all')
         .then(res => res.json())
         .then(data => {
           this.reservations = [...data]

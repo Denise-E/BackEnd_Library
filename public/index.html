@@ -55,7 +55,8 @@ createApp({
   data() {
     return {
         lista: [],
-        error: ""
+        error: "",
+        book: {}
         }
     },
   methods:{
@@ -70,15 +71,27 @@ createApp({
         .catch(err => this.error = err)
     },
     verDetalles(id) {
-    window.location.href = `libroPorId.html?id=${id}`;
+    window.location.href = `./books/libroPorId.html?id=${id}`;
     },
 
     eliminarLibro(id) {
-    window.location.href = `libroEliminado.html?id=${id}`;
+        fetch(`http://localhost:8080/api/books/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                }},)
+        .then(res => res.json())
+        .then(data => {
+          console.log(data);
+          this.book = data
+          }
+        )
+        .catch(err => this.error = err)
+        this.loadData()
     },
 
     reservar(id) {
-    window.location.href = `agregarReserva.html?id=${id}`;
+    window.location.href = `./reservations/agregarReserva.html?id=${id}`;
     },
   },
   mounted(){

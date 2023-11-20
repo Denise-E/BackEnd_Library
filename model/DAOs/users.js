@@ -15,6 +15,7 @@ class ModelMongoDB {
         .collection("users")
         .find({})
         .toArray();
+        console.log(users);
       return users;
     }
   };
