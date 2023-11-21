@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Libro</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="../index.html">Todos los libros</a>
+            <a href="../books/agregarLibro.html">Agregar Libro</a>
+            <a href="../books/librosSugeridos.html">Sugeridos</a>
+            <a href="../users/usuarios.html">Usuarios</a>
+            <a href="reservas.html">Reservas</a>
+        </nav>
+    </header>
+
+    <main id="app" class="container mt-5">
+        <!-- Formulario para cambiar el cliente -->
+        <h2>Editar Libro</h2>
+            <form @submit.prevent="actualizarLibro" method="post">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titulo</label>
+                    <input v-model="libro.title" name="title" type="text" class="form-control" id="title" required :placeholder="libroOriginal.title">
+                </div>
+                <div class="mb-3">
+                    <label for="author" class="form-label">Autor</label>
+                    <input v-model="libro.author" name="author" type="text" class="form-control" id="author" required :placeholder="libroOriginal.author">
+                </div>
+                <div class="mb-3">
+                    <label for="stock" class="form-label">Stock</label>
+                    <input v-model="libro.stock" name="stock" type="number" class="form-control" id="stock" required :placeholder="libroOriginal.stock">
+                </div>
+                <button type="submit" class="btn btn-primary">Editar libro</button>
+            </form>
+    </main>
+
+    <footer></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const { createApp, ref } = Vue
+    
+    createApp({
+      data() {
+        return {
+            libroOriginal: {},
+            libro: {},
+            params: null,
+            bookId: null,
+            error: null,
+            }
+        },
+      methods:{
+        loadData(){
+          console.log(this.bookId);
+            fetch(`http://localhost:8080/api/books/${this.bookId}`)
+            .then(res => res.json())
+            .then(data => {
+              console.log(data);
+              this.libroOriginal = data;
+              }
+            )
+            .catch(err => this.error = err)
+    
+        },
+        actualizarLibro() {
+            fetch(`http://localhost:8080/api/books/${this.bookId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.libro),
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Libro editado!")
+                window.location.href = '../index.html';
+                console.log('Libro actualizado:', data);
+                
+            })
+            .catch(error => {
+                console.error('Error al actualizar la reserva:', error);
+            });
+        }
+
+      },
+      mounted(){
+        this.params = new URLSearchParams(window.location.search);
+        this.bookId = this.params.get('id');
+        this.loadData()
+      }
+    }).mount('#app')
+    </script>
+</body>
+</html>

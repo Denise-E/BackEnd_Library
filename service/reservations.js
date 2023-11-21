@@ -1,22 +1,74 @@
 import ReservationModel from "../model/DAOs/reservations.js";
 import BooksService from "./books.js";
+import UsersService from "./users.js";
 
 class ReservationService {
   constructor() {
     this.model = new ReservationModel();
     this.booksService = new BooksService();
+    this.usersService = new UsersService();
   }
 
   get = async (id) => {
-    return await this.model.get(id);
+    // Trae todas (o una) reservaciones
+    const reservation = await this.model.get(id);
+  
+    if (Array.isArray(reservation)) {
+      // Si es un array de reservas
+      const result = await Promise.all(reservation.map(async (reserva) => {
+        const client = await this.usersService.get(reserva.id_client);
+        const book = await this.booksService.get(reserva.id_book);
+  
+        return {
+          _id: reserva._id,
+          cliente: client ? client.name : 'Cliente no encontrado',
+          libro: book ? book.title : 'Libro no encontrado'
+        };
+      }));
+  
+      return result;
+    } else if (reservation) {
+      // Si es una sola reserva
+      const client = await this.usersService.get(reservation.id_client);
+      const book = await this.booksService.get(reservation.id_book);
+  
+      return {
+        _id: reservation._id,
+        cliente: client ? client.name : 'Cliente no encontrado',
+        libro: book ? book.title : 'Libro no encontrado'
+      };
+    } else {
+      // Si no hay reservas
+      return {};
+    }
   };
 
   add = async (res) => {
-    return await this.model.add(res);
+    const user = await this.usersService.get_by_email(res.email_client);
+    if (user) {
+        const nuevaReserva = {
+          id_client: user._id,
+          id_book: res.id_book
+      };
+      return await this.model.add(nuevaReserva);
+
+    }else{
+      console.error('Usuario no encontrado con el email proporcionado.');
+      return {};
+    }
+
   };
 
+ 
+
   update = async (id, res) => {
-    return await this.model.update(id, res);
+    const user = await this.usersService.get_by_email(res.email_client);
+    const book = await this.booksService.get_by_name(res.libro);
+    const nuevaReserva = {
+      id_client: user._id,
+      id_book: book._id
+  };
+    return await this.model.update(id, nuevaReserva);
   };
 
   delete = async (id) => {

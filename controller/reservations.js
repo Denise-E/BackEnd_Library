@@ -33,7 +33,6 @@ class ReservationController {
     try {
       const { id } = req.params;
       const reservation = req.body;
-
       const updated = await this.service.update(id, reservation);
       res.json(updated);
     } catch (error) {

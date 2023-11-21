@@ -38,7 +38,7 @@
                                 <button class="btn btn-success" style="background-color: grey; border-color: grey;"> No Disponible </button>
                             </span>
                             <span v-else>
-                                <button class="btn btn-success" @click="reservar(l.id)"> Reservar </button>
+                                <button class="btn btn-success" @click="reservar(l._id)"> Reservar </button>
                             </span>
                         <button class="btn btn-primary" @click="editarLibro(l._id)">Editar Libro</button>
                         <button class="btn btn-danger" @click="eliminarLibro(l._id)">Eliminar</button>

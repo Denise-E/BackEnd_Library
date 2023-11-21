@@ -19,6 +19,19 @@ class ModelMongoDB {
       return users;
     }
   };
+  get_by_email = async (email) => {
+    if (!CnxMongoDB.connection) return email ? {} : [];
+  
+    if (email) {
+      const user = await CnxMongoDB.db
+        .collection("users")
+        .findOne({ email: email });
+      return user;
+    } else {
+      return [];
+    }
+  };
+  
 
   add = async (user) => {
     if (!CnxMongoDB.connection) return {};

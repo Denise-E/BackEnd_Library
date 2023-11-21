@@ -6,6 +6,10 @@ class BookService {
     this.model = new BookModel();
   }
 
+  get_by_name = async (libro) => {
+    return await this.model.get_by_name(libro);
+  };
+
   get = async (id) => {
     return await this.model.get(id);
   };

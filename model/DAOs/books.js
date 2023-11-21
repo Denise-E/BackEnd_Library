@@ -18,6 +18,18 @@ class ModelMongoDB {
       return books;
     }
   };
+  get_by_name = async (libro) => {
+    if (!CnxMongoDB.connection) return libro ? {} : [];
+
+    if (libro) {
+      const book = await CnxMongoDB.db
+          .collection("books")
+          .findOne({ title: libro });
+      return book;
+  }
+
+  return {};
+  };
 
   add = async (book) => {
     if (!CnxMongoDB.connection) return {};
