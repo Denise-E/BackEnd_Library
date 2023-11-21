@@ -39,7 +39,8 @@ class BookService {
 
   add = async (book) => {
     const valid = validate(book)
-    if(!valid.result) {
+
+    if(valid.result == false) {
       throw new Errors.ValidationError("El libro recibido no es valido")
     }
     return await this.model.add(book);

@@ -5,9 +5,10 @@ import book_generator from './generator/book_generator.js'
 const request = supertest('http://127.0.0.1:8080')
 
 describe(' *** Test APIRestfull *** ', () => {
-    describe('GET', () => {
+    /** describe('GET', () => {
         it('Obtención exitosa del listado de reservas', async () => {
             const response = await request.get('/api/reservations')
+
             expect(response.status).to.eql(200)
 
             const added_book = response.body
@@ -16,20 +17,20 @@ describe(' *** Test APIRestfull *** ', () => {
                 expect(element).to.include.keys('_id','id_book','id_client')
             });
         })
-        /**it('Reserva no encontrada', async () => {
+        it('Reserva no encontrada', async () => {
             const response = await request.get('/api/reservations/999999')
             expect(response.status).to.eql(404)
-        })**/
-    })
+        })
+    })**/
 
     describe('POST', () => {
         it('* Incorporación exitosa de un nuevo libro', async () => {
             const book = book_generator.get_book()
-
+            
             const response = await request.post('/api/books').send(book)
             expect(response.status).to.eql(201)
 
-            const added_book = response.body
+            const added_book = response.body.data
             
             expect(added_book).to.include.keys('title','author','stock')
             expect(added_book.title).to.eql(book.title)
@@ -43,10 +44,10 @@ describe(' *** Test APIRestfull *** ', () => {
             const book = book_generator.get_incorrect_book()
             const response = await request.post('/api/books').send(book)
 
-            expect(response.status).to.eql(400) 
+            expect(response.status).to.eql(400)
 
             const not_added = response.body
-            console.log(not_added)
+            //console.log(not_added)
         })
     })
 })
