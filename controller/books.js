@@ -1,4 +1,5 @@
 import BookService from "../service/books.js";
+import ValidationError from "../service/service_errors.js";
 
 class BookController {
   constructor() {
@@ -31,22 +32,24 @@ class BookController {
   };
 
   add = async (req, res) => {
+    //En el try queda solo el caso exitoso
     try {
       console.log("METHOD")
       let book = req.body;
 
       const added = await this.service.add(book);
-
-      if(added) {
-        res.status(201)
-        
-      }else{
-        res.status(400)
-      }
+      res.status(201)
       res.json(added);
       
     } catch (error) {
-      console.log("Error al crear libro: ", error);
+      //Con un instanceof chequeo  el tipo y retornamos el error asi
+      if (error instanceof ValidationError) {
+        res.status(400)
+        res.json("error: el libro no es valido para crear")
+      } else {
+        res.status(500)
+        res.json("error: ha ocurrido un error inesperado", error)
+      }
     }
   };
 

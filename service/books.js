@@ -1,5 +1,6 @@
 import BookModel from "../model/DAOs/books.js";
 import { validate } from "./validations/books_validations.js"
+import ValidationError from "./service_errors.js";
 
 class BookService {
   constructor() {
@@ -19,8 +20,9 @@ class BookService {
     if(valid.result) {
       return await this.model.add(book);
     } else {
-        console.log(valid.error)
-        return undefined
+      //Aca solo tiro este error para que lo levante el controller
+      console.log(valid.error)
+      throw new ValidationError("El libro recibido no es valido")
     }
   };
 
@@ -30,7 +32,7 @@ class BookService {
       return await this.model.update(id, book);
     } else {
       console.log(valid.error)
-      return undefined
+      throw new ValidationError("El libro recibido no es valido")
     }
   };
 
@@ -40,3 +42,4 @@ class BookService {
 }
 
 export default BookService;
+
