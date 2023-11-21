@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,18 +74,23 @@ createApp({
 
     },
     agregarReserva() {
-                    fetch('http://localhost:8080/api/reservations/', {
+                    console.log("ADD")
+                    fetch('http://localhost:8080/api/reservations', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(this.nuevaReserva),
                     })
-                    .then(res => res.json())
+                    .then(res => {
+                      console.log("RES")
+                      console.log(res)
+                      res.json()
+                    })
                     .then(data => {
                         console.log(data);
                         this.nuevaReserva = data
-                        alert("Libro reservado!")
+                        console.log("Libro reservado!")
                         window.location.href = '../index.html';
                     })
                     .catch(error => {

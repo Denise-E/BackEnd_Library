@@ -14,6 +14,7 @@ class ReservationService {
     // Trae todas (o una) reservaciones
     const reservation = await this.model.get(id);
   
+    console.log("SERVICEEEEE")
     if (Array.isArray(reservation)) {
       // Si es un array de reservas
       const result = await Promise.all(reservation.map(async (reserva) => {
