@@ -1,5 +1,5 @@
 import BookService from "../service/books.js";
-import ValidationError from "../service/service_errors.js";
+import Errors from "../service/service_errors.js";
 
 class BookController {
   constructor() {
@@ -11,9 +11,15 @@ class BookController {
       const { id } = req.params;
 
       let books = await this.service.get(id);
-      res.json(books);
+      res.status(200).json(books);
     } catch (error) {
-      console.log("Error al obtener libros: ", error);
+      if (error instanceof Errors.NotFoundError) {
+        res.status(404).json({ error: "No se encontro el ID" })
+      } else if (error instanceof Errors.InvalidParameterError) {
+        res.status(400).json({ error: "El parametro es invalido" })
+      } else {
+        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
+      }
     }
   };
   
@@ -34,21 +40,16 @@ class BookController {
   add = async (req, res) => {
     //En el try queda solo el caso exitoso
     try {
-      console.log("METHOD")
       let book = req.body;
 
       const added = await this.service.add(book);
-      res.status(201)
-      res.json(added);
+      res.status(201).json({ data: added });
       
     } catch (error) {
-      //Con un instanceof chequeo  el tipo y retornamos el error asi
-      if (error instanceof ValidationError) {
-        res.status(400)
-        res.json("error: el libro no es valido para crear")
+      if (error instanceof Errors.ValidationError) {
+        res.status(400).json({ error: "el libro no es valido para crear" })
       } else {
-        res.status(500)
-        res.json("error: ha ocurrido un error inesperado", error)
+        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
       }
     }
   };
@@ -59,22 +60,32 @@ class BookController {
       const book = req.body;
 
       const updated = await this.service.update(id, book);
-      res.json(updated);
+      res.status(200).json(updated);
     } catch (error) {
-      console.log("Error al actualizar libro: ", error);
+      if (error instanceof Errors.ValidationError) {
+        res.status(400).json({ error: "el libro enviado no es valido para actualizar" })
+      } else if (error instanceof Errors.NotFoundError) {
+        res.status(404).json({ error: "No se encontro el ID" })
+      } 
+      else {
+        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
+      }
     }
   };
 
   delete = async (req, res) => {
     try {
       const { id } = req.params;
-
       const deleted = await this.service.delete(id);
-      res.json(deleted);
+      res.status(201).json(deleted);
     } catch (error) {
-      console.log("Error al eliminar libro: ", error);
+      if (error instanceof Errors.NotFoundError) {
+        res.status(404).json({ error: "No se encontro el ID" })
+      } else {
+        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
+      }
+    }
     }
   };
-}
 
 export default BookController;

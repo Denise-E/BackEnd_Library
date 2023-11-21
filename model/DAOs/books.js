@@ -2,21 +2,30 @@ import { ObjectId } from "mongodb";
 import CnxMongoDB from "../DBMongo.js";
 
 class ModelMongoDB {
-  get = async (id) => {
+  get_all = async () => {
+    if (!CnxMongoDB.connection) return id ? {} : [];
+    const books = await CnxMongoDB.db
+      .collection("books")
+      .find({})
+      .toArray();
+      
+    return books;
+  }
+  get_by_id = async (id) => {
     if (!CnxMongoDB.connection) return id ? {} : [];
 
-    if (id) {
+    try {
       const book = await CnxMongoDB.db
-        .collection("books")
-        .findOne({ _id: new ObjectId(id) });
+      .collection("books")
+      .findOne({ _id: new ObjectId(id) });
+
       return book;
-    } else {
-      const books = await CnxMongoDB.db
-        .collection("books")
-        .find({})
-        .toArray();
-      return books;
+    } catch (e) {
+      throw e
     }
+
+
+    
   };
   get_by_name = async (libro) => {
     if (!CnxMongoDB.connection) return libro ? {} : [];
@@ -33,26 +42,23 @@ class ModelMongoDB {
 
   add = async (book) => {
     if (!CnxMongoDB.connection) return {};
-
     await CnxMongoDB.db.collection("books").insertOne(book);
     return book;
   };
 
   update = async (id, books) => {
     if (!CnxMongoDB.connection) return {};
-
     await CnxMongoDB.db
       .collection("books")
       .updateOne({ _id: new ObjectId(id) }, { $set: books });
-
-    const updated = await this.get(id);
+    const updated = await this.get_by_id(id);
     return updated;
   };
 
   delete = async (id) => {
     if (!CnxMongoDB.connection) return {};
 
-    const deleted = await this.get(id);
+    const deleted = await this.get_by_id(id);
     await CnxMongoDB.db
       .collection("books")
       .deleteOne({ _id: new ObjectId(id) });

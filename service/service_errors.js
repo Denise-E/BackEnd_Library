@@ -3,5 +3,17 @@ class ValidationError extends Error {
       super(message);
     }
   }
+
+class NotFoundError extends Error{
+  constructor(message) {
+    super(message);
+  }
+}
+
+class InvalidParameterError extends Error{
+  constructor(message) {
+    super(message);
+  }
+}
   
-  export default ValidationError;
+export default { ValidationError, NotFoundError, InvalidParameterError };
