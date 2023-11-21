@@ -1,4 +1,5 @@
 import UserModel from "../model/DAOs/users.js";
+import { validate } from "./validations/users_validations.js"
 
 class UserService {
   constructor() {
@@ -13,11 +14,21 @@ class UserService {
   };
 
   add = async (user) => {
-    return await this.model.add(user);
+    const valid = validate(user)
+    if (valid) {
+      return await this.model.add(user);
+    } else {
+      console.log(valid.error)
+    }
   };
 
   update = async (id, user) => {
-    return await this.model.update(id, user);
+    const valid = validate(user)
+    if (valid) {
+      return await this.model.update(id, user);
+    } else {
+      console.log(valid.error)
+    }
   };
 
   delete = async (id) => {

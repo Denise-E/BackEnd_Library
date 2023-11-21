@@ -1,6 +1,7 @@
 import ReservationModel from "../model/DAOs/reservations.js";
 import BooksService from "./books.js";
 import UsersService from "./users.js";
+import { validate } from "./validations/reservations_validations.js"
 
 class ReservationService {
   constructor() {
@@ -44,31 +45,42 @@ class ReservationService {
   };
 
   add = async (res) => {
-    const user = await this.usersService.get_by_email(res.email_client);
-    if (user) {
-        const nuevaReserva = {
-          id_client: user._id,
-          id_book: res.id_book
-      };
-      return await this.model.add(nuevaReserva);
-
-    }else{
-      console.error('Usuario no encontrado con el email proporcionado.');
-      return {};
+    const valid = validate(res)
+    if (valid.result) {
+      const user = await this.usersService.get_by_email(res.email_client);
+      if (user) {
+          const nuevaReserva = {
+            id_client: user._id,
+            id_book: res.id_book
+        };
+        return await this.model.add(nuevaReserva);
+  
+      }else{
+        console.error('Usuario no encontrado con el email proporcionado.');
+        return {};
+      }
+    } else {
+      console.log(res.error)
+      return undefined
     }
-
   };
 
  
 
   update = async (id, res) => {
-    const user = await this.usersService.get_by_email(res.email_client);
-    const book = await this.booksService.get_by_name(res.libro);
-    const nuevaReserva = {
-      id_client: user._id,
-      id_book: book._id
-  };
-    return await this.model.update(id, nuevaReserva);
+    const valid = validate(res)
+    if (valid) {
+      const user = await this.usersService.get_by_email(res.email_client);
+      const book = await this.booksService.get_by_name(res.libro);
+      const nuevaReserva = {
+        id_client: user._id,
+        id_book: book._id
+      };
+      return await this.model.update(id, nuevaReserva);
+    } else {
+      console.log(valid.error)
+      return undefined
+    }
   };
 
   delete = async (id) => {

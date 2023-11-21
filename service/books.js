@@ -15,17 +15,23 @@ class BookService {
   };
 
   add = async (book) => {
-    const res = validate(book)
-    if(res.result) {
+    const valid = validate(book)
+    if(valid.result) {
       return await this.model.add(book);
-    }else{
-        console.log(res.error)
+    } else {
+        console.log(valid.error)
         return undefined
     }
   };
 
   update = async (id, book) => {
-    return await this.model.update(id, book);
+    const valid = validate(book)
+    if(valid.result) {
+      return await this.model.update(id, book);
+    } else {
+      console.log(valid.error)
+      return undefined
+    }
   };
 
   delete = async (id) => {
