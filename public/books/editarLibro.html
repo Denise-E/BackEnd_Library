@@ -68,6 +68,8 @@
     
         },
         actualizarLibro() {
+
+            console.log('ACTUALIZANDO')
             fetch(`http://localhost:8080/api/books/${this.bookId}`, {
                 method: 'PUT',
                 headers: {
@@ -77,7 +79,6 @@
             })
             .then(res => res.json())
             .then(data => {
-                alert("Libro editado!")
                 window.location.href = '../index.html';
                 console.log('Libro actualizado:', data);
                 

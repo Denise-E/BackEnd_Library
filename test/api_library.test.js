@@ -16,6 +16,10 @@ describe(' *** Test APIRestfull *** ', () => {
                 expect(element).to.include.keys('_id','id_book','id_client')
             });
         })
+        /**it('Reserva no encontrada', async () => {
+            const response = await request.get('/api/reservations/999999')
+            expect(response.status).to.eql(404)
+        })**/
     })
 
     describe('POST', () => {
