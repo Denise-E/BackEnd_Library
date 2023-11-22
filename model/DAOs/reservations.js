@@ -2,23 +2,30 @@ import { ObjectId } from "mongodb";
 import CnxMongoDB from "../DBMongo.js";
 
 class ModelMongoDB {
-  get = async (id) => {
+  get_all = async () => {
+    if (!CnxMongoDB.connection) return id ? {} : [];
+    const reservations = await CnxMongoDB.db
+    .collection("reservations")
+    .find({})
+    .toArray();
+
+  return reservations;
+  }
+  get_by_id = async (id) => {
     if (!CnxMongoDB.connection) return id ? {} : [];
 
-    if (id) {
-      const reservation = await CnxMongoDB.db
-        .collection("reservations")
-        .findOne({ _id: new ObjectId(id) })
-      
-        console.log("RESERVATION ", reservation)
-      return reservation;
-    } else {
-      const reservations = await CnxMongoDB.db
-        .collection("reservations")
-        .find({})
-        .toArray();
-      return reservations;
+    try {
+      if (id) {
+        const reservation = await CnxMongoDB.db
+          .collection("reservations")
+          .findOne({ _id: new ObjectId(id) })
+        
+        return reservation;
+      }
+    } catch (e) {
+      throw e
     }
+
   };
 
   add = async (reservation) => {
@@ -42,7 +49,7 @@ class ModelMongoDB {
   delete = async (id) => {
     if (!CnxMongoDB.connection) return {};
 
-    const deleted = await this.get(id);
+    const deleted = await this.get_by_id(id);
     await CnxMongoDB.db
       .collection("reservations")
       .deleteOne({ _id: new ObjectId(id) });
