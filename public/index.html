@@ -71,7 +71,8 @@ createApp({
         fetch('api/books/')
         .then(res => res.json())
         .then(data => {
-          this.lista = [...data]
+          let ordered_list = [...data].sort((a,b) => a.title.localeCompare(b.title))
+          this.lista = ordered_list
           console.log(data);
           }
         )
