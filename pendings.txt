@@ -1,11 +1,6 @@
 
 PENDIENTE
 
-* Logica reservas mostrando datos (x2 rutas GET), edit y delete - ARI 
-* Vistas faltantes: Edicion libros, edicion usuarios y edicion de reservas- ARI
-
-
-* Test GET reservas - Falta caso no exitoso - DENU
 * Validar campos en inserts y updates con JOI: - IVI (BOOKS agregar en update)
     - Hecho para POST de libros (usado en test). 
     - Hacer dentro de la carpeta de servicios (+ MANEJO DE ERRORES en controlador)
