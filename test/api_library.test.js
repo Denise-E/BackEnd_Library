@@ -5,7 +5,7 @@ import book_generator from './generator/book_generator.js'
 const request = supertest('http://127.0.0.1:8080')
 
 describe(' *** Test APIRestfull *** ', () => {
-    /** describe('GET', () => {
+     describe('GET', () => {
         it('Obtención exitosa del listado de reservas', async () => {
             const response = await request.get('/api/reservations')
 
@@ -14,14 +14,14 @@ describe(' *** Test APIRestfull *** ', () => {
             const added_book = response.body
 
             added_book.forEach(element => {
-                expect(element).to.include.keys('_id','id_book','id_client')
+                expect(element).to.include.keys('_id','libro','cliente')
             });
-        })
+        }) 
         it('Reserva no encontrada', async () => {
-            const response = await request.get('/api/reservations/999999')
+            const response = await request.get('/api/reservations/653df129df2a591fafe4947f')
             expect(response.status).to.eql(404)
-        })
-    })**/
+        }) 
+    })
 
     describe('POST', () => {
         it('* Incorporación exitosa de un nuevo libro', async () => {

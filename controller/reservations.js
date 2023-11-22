@@ -10,7 +10,15 @@ class ReservationController {
       const { id } = req.params;
 
       let reservations = await this.service.get(id);
-      res.json(reservations);
+      console.log("reservations: ", reservations)
+      if(Object.keys(reservations).length > 0){
+        res.status(200)
+        res.json(reservations);
+      }else{
+        res.status(404)
+        res.json(reservations);
+      }
+      
     } catch (error) {
       console.log("Error al obtener reservas: ", error);
     }
