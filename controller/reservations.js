@@ -10,7 +10,7 @@ class ReservationController {
       const { id } = req.params;
 
       let reservations = await this.service.get(id);
-      console.log("reservations: ", reservations)
+      
       if(Object.keys(reservations).length > 0){
         res.status(200)
         res.json(reservations);
@@ -29,8 +29,15 @@ class ReservationController {
       let prod = req.body;
 
       const added = await this.service.add(prod);
-      res.status(201)
-      res.json(added);
+
+      if(Object.keys(added).length > 0){
+        res.status(201)
+        res.json(added);
+      }else{
+        res.status(404)
+        console.log("Usuario no encontrado");
+      }
+      
     } catch (error) {
       res.status(400)
       console.log("Error al crear reserva: ", error);

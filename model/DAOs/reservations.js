@@ -10,7 +10,6 @@ class ModelMongoDB {
         .collection("reservations")
         .findOne({ _id: new ObjectId(id) })
       
-        console.log("RESERVATION ", reservation)
       return reservation;
     } else {
       const reservations = await CnxMongoDB.db
