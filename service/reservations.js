@@ -89,6 +89,7 @@ class ReservationService {
 
     // Book quantity update
     const book = await this.booksService.get(res.id_book);
+    delete book._id
     book.stock += 1;
     await this.booksService.update(book.id, book);
 
