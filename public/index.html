@@ -73,7 +73,6 @@ createApp({
         .then(data => {
           let ordered_list = [...data].sort((a,b) => a.title.localeCompare(b.title))
           this.lista = ordered_list
-          console.log(data);
           }
         )
         .catch(err => this.error = err)
