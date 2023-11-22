@@ -89,9 +89,10 @@ class ReservationService {
 
     // Book quantity update
     const book = await this.booksService.get(res.id_book);
+    const id_param = book.id
     delete book._id
     book.stock += 1;
-    await this.booksService.update(book.id, book);
+    await this.booksService.update(id_param, book);
 
     // When the book is returned, the reservation is deleted
     return await this.model.delete(id);
