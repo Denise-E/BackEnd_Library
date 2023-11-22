@@ -54,15 +54,6 @@ class ReservationService {
           id_client: user._id,
           id_book: book._id
         };
-        
-        if(book){
-          const id_param = book._id
-          delete book._id
-          book.stock -= 1;
-          await this.booksService.update(id_param, book);
-        }
-        
-        
         return await this.model.add(nuevaReserva);
   
       }else{
@@ -98,10 +89,8 @@ class ReservationService {
 
     // Book quantity update
     const book = await this.booksService.get(res.id_book);
-    const id_param = book._id
-    delete book._id
     book.stock += 1;
-    await this.booksService.update(id_param, book);
+    await this.booksService.update(book.id, book);
 
     // When the book is returned, the reservation is deleted
     return await this.model.delete(id);
