@@ -5,7 +5,7 @@ import book_generator from './generator/book_generator.js'
 const request = supertest('http://127.0.0.1:8080')
 
 describe(' *** Test APIRestfull *** ', () => {
-     describe('GET', () => {
+     describe('Reservations GET', () => {
         it('Obtención exitosa del listado de reservas', async () => {
             const response = await request.get('/api/reservations')
 
@@ -23,7 +23,7 @@ describe(' *** Test APIRestfull *** ', () => {
         }) 
     })
 
-    describe('POST', () => {
+    describe('Books POST', () => {
         it('* Incorporación exitosa de un nuevo libro', async () => {
             const book = book_generator.get_book()
             

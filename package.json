@@ -5,7 +5,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha test/api_library.test.js --timeout 30000",
+    "test": "mocha test/api_library.test.js --timeout 10000",
     "watch": "nodemon server.js",
     "start": "node server.js"
   },
