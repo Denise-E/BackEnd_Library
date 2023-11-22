@@ -47,11 +47,12 @@ class ReservationService {
   add = async (res) => {
     const valid = validate(res)
     if (valid.result) {
-      const user = await this.usersService.get_by_email(res.email_client);
+      const user = await this.usersService.get_by_email(res.user_email);
       if (user) {
-          const nuevaReserva = {
-            id_client: user._id,
-            id_book: res.id_book
+        const book = await this.booksService.get(res.id_book);
+        const nuevaReserva = {
+          id_client: user._id,
+          id_book: book._id
         };
         return await this.model.add(nuevaReserva);
   
@@ -70,7 +71,7 @@ class ReservationService {
   update = async (id, res) => {
     const valid = validate(res)
     if (valid) {
-      const user = await this.usersService.get_by_email(res.email_client);
+      const user = await this.usersService.get_by_email(res.user_email);
       const book = await this.booksService.get_by_name(res.libro);
       const nuevaReserva = {
         id_client: user._id,
@@ -88,7 +89,7 @@ class ReservationService {
 
     // Book quantity update
     const book = await this.booksService.get(res.id_book);
-    book.available_quantity += 1;
+    book.stock += 1;
     await this.booksService.update(book.id, book);
 
     // When the book is returned, the reservation is deleted

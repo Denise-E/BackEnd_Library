@@ -43,7 +43,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ nuevoLibro.title }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ `Author: ${nuevoLibro.author}` }}</h6>
-                <p class="card-text">{{ `Available Quantity: ${nuevoLibro.stock}` }}</p>
+                <p class="card-text">{{ `Stock: ${nuevoLibro.stock}` }}</p>
             </div>
             </div>
             
@@ -79,7 +79,7 @@
                     .then(res => res.json())
                     .then(data => {
                         console.log(data);
-                        this.nuevoLibro = data
+                        this.nuevoLibro = data.data
                         this.agregado = true
 
                     })

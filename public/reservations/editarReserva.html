@@ -76,7 +76,7 @@
         actualizarReserva() {
             //Armo la reserva (cambio el nombre del cliente por el nuevo email)
             const nuevaReserva = { ...this.reservaOriginal };
-            nuevaReserva.email_client = this.reserva.cliente;
+            nuevaReserva.user_email = this.reserva.cliente;
             delete nuevaReserva.cliente;
             // console.log(nuevaReserva);
 

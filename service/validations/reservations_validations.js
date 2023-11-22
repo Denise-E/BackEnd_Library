@@ -4,7 +4,7 @@ export const validate = reservations => {
 
     const reservationsSchema = Joi.object({
         user_email: Joi.string().email().required(),
-        id_book: Joi.number().integer().min(0).required()
+        id_book: Joi.string().hex().length(24).required()
     })
 
     const { error } = reservationsSchema.validate(reservations)
