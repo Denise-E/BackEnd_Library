@@ -2,22 +2,28 @@ import { ObjectId } from "mongodb";
 import CnxMongoDB from "../DBMongo.js";
 
 class ModelMongoDB {
-  get = async (id) => {
+  get_all = async () => {
     if (!CnxMongoDB.connection) return id ? {} : [];
-
-    if (id) {
+    const users = await CnxMongoDB.db
+      .collection("users")
+      .find({})
+      .toArray();
+    
+    return users;
+  };
+  get_by_id = async (id) => {
+    if (!CnxMongoDB.connection) return id ? {} : [];
+ 
+    try {
       const user = await CnxMongoDB.db
         .collection("users")
         .findOne({ _id: new ObjectId(id) });
+        
       return user;
-    } else {
-      const users = await CnxMongoDB.db
-        .collection("users")
-        .find({})
-        .toArray();
-        // console.log(users);
-      return users;
-    }
+      } catch (e) {
+        throw e
+      }
+
   };
   get_by_email = async (email) => {
     if (!CnxMongoDB.connection) return email ? {} : [];
@@ -54,7 +60,7 @@ class ModelMongoDB {
   delete = async (id) => {
     if (!CnxMongoDB.connection) return {};
 
-    const deleted = await this.get(id);
+    const deleted = await this.get_by_id(id);
     await CnxMongoDB.db
       .collection("users")
       .deleteOne({ _id: new ObjectId(id) });

@@ -66,8 +66,7 @@ class BookController {
         res.status(400).json({ error: "el libro enviado no es valido para actualizar" })
       } else if (error instanceof Errors.NotFoundError) {
         res.status(404).json({ error: "no se encontro el ID" })
-      } 
-      else {
+      } else {
         res.status(500).json({ error: 'ha ocurrido un error inesperado' });
       }
     }
@@ -77,7 +76,7 @@ class BookController {
     try {
       const { id } = req.params;
       const deleted = await this.service.delete(id);
-      res.status(201).json(deleted);
+      res.status(200).json(deleted);
     } catch (error) {
       if (error instanceof Errors.NotFoundError) {
         res.status(404).json({ error: "no se encontro el ID" })
