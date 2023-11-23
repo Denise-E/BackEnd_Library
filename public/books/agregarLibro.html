@@ -12,6 +12,7 @@
     <header>
         <nav>
             <a href="../index.html">Todos los libros</a>
+            <a href="agregarLibro.html">Agregar Libro</a>
             <a href="librosSugeridos.html">Sugeridos</a>
             <a href="../users/usuarios.html">Usuarios</a>
             <a href="../reservations/reservas.html">Reservas</a>
@@ -78,6 +79,7 @@
                     })
                     .then(res => res.json())
                     .then(data => {
+                        console.log(data);
                         this.nuevoLibro = data.data
                         this.agregado = true
 

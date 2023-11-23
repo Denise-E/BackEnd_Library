@@ -11,6 +11,7 @@ class ReservationController {
       const { id } = req.params;
 
       let reservations = await this.service.get(id);
+
       res.status(200).json(reservations);
       
     } catch (error) {
@@ -29,7 +30,9 @@ class ReservationController {
       let prod = req.body;
 
       const added = await this.service.add(prod);
+
       res.status(201).json({ data: added });
+
     } catch (error) {
       if (error instanceof Errors.ValidationError) {
         res.status(400).json({ error: "la reserva no es valida para crear" })

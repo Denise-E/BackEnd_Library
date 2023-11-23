@@ -48,6 +48,7 @@ class BookService {
   update = async (id, book) => {
     try {
       await this.get(id)
+
     const validBook = validate(book)
     if(!validBook.result) {
       throw new Errors.ValidationError("El libro recibido no es valido")
