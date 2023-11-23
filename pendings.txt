@@ -1,6 +1,2 @@
 
-PENDIENTE
-
-* Validar campos en inserts y updates con JOI: - IVI (BOOKS agregar en update)
-    - Hecho para POST de libros (usado en test). 
-    - Hacer dentro de la carpeta de servicios (+ MANEJO DE ERRORES en controlador)
+-- Validar usuario existente al reservar: REFLEJAR ACCION

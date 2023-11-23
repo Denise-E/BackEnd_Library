@@ -51,7 +51,12 @@ class BookService {
     } catch (e){
       throw e
     }
+<<<<<<< HEAD
     const validBook = validate(bookClone)
+=======
+
+    const validBook = validate(book)
+>>>>>>> main
     if(!validBook.result) {
       throw new Errors.ValidationError("El libro recibido no es valido")
     }

@@ -14,6 +14,7 @@ class ModelMongoDB {
   get_by_id = async (id) => {
     if (!CnxMongoDB.connection) return id ? {} : [];
 
+<<<<<<< HEAD
     try {
       if (id) {
         const reservation = await CnxMongoDB.db
@@ -24,6 +25,20 @@ class ModelMongoDB {
       }
     } catch (e) {
       throw e
+=======
+    if (id) {
+      const reservation = await CnxMongoDB.db
+        .collection("reservations")
+        .findOne({ _id: new ObjectId(id) })
+      
+      return reservation;
+    } else {
+      const reservations = await CnxMongoDB.db
+        .collection("reservations")
+        .find({})
+        .toArray();
+      return reservations;
+>>>>>>> main
     }
 
   };
