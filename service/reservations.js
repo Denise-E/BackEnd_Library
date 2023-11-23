@@ -33,7 +33,7 @@ class ReservationService {
           _id: reserva._id,
           cliente: client ? client.name : 'Cliente no encontrado',
           libro: book ? book.title : 'Libro no encontrado'
-        };
+        }; 
       }));
   
       return result;
