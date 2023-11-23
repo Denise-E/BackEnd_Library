@@ -18,7 +18,7 @@ class BookController {
       } else if (error instanceof Errors.InvalidParameterError) {
         res.status(400).json({ error: "El parametro es invalido" })
       } else {
-        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
+        res.status(500).json({ error: 'Ha ocurrido un error inesperado' });
       }
     }
   };

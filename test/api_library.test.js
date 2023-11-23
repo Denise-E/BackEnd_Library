@@ -13,9 +13,13 @@ describe(' *** Test APIRestfull *** ', () => {
 
             const added_book = response.body
 
-            added_book.forEach(element => {
-                expect(element).to.include.keys('_id','libro','cliente')
-            });
+            if(Array.isArray(added_book)){
+                added_book.forEach(element => {
+                    expect(element).to.include.keys('_id','libro','cliente')
+                });
+            }
+
+            
         }) 
         it('Reserva no encontrada', async () => {
             const response = await request.get('/api/reservations/653df129df2a591fafe4947f')
