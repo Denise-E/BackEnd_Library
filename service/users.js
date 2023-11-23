@@ -8,24 +8,20 @@ class UserService {
   }
 
   get = async (id) => {
+    try {
     if (id) {
-      try {
-        let result = await this.model.get(id);
+        let result = await this.model.get_by_id(id);
         if (result == null) {
           throw new Errors.NotFoundError("No se encontro ningun user con el ID")
         }
         return result
-      } catch (e) {
-        if (e.constructor.name === "BSONError") {
-          throw new Errors.InvalidParameterError("el parametro es invalido")
-        } else {
-          throw e
-        }
-      }
     } else {
-      try {
         return await this.model.get_all();
-      } catch (e) {
+      }
+    } catch (e) {
+      if (e.constructor.name === "BSONError") {
+        throw new Errors.InvalidParameterError("el parametro es invalido")
+      } else {
         throw e
       }
     }
@@ -37,7 +33,7 @@ class UserService {
   add = async (user) => {
     const valid = validate(user)
     if (!valid.result) {
-      throw new Errors.ValidationError("El user recibido no es valido")
+      throw new Errors.ValidationError("el user recibido no es valido")
     } 
     return await this.model.add(user);
   };

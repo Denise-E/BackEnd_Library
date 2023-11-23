@@ -48,19 +48,10 @@ class BookService {
   update = async (id, book) => {
     try {
       await this.get(id)
-    } catch (e){
-      throw e
-    }
-<<<<<<< HEAD
-    const validBook = validate(bookClone)
-=======
-
     const validBook = validate(book)
->>>>>>> main
     if(!validBook.result) {
       throw new Errors.ValidationError("El libro recibido no es valido")
     }
-    try {
       return await this.model.update(id, book);
     } catch (e) {
       throw e
@@ -70,10 +61,6 @@ class BookService {
   delete = async (id) => {
     try {
       await this.get(id)
-    } catch (e){
-      throw e
-    }
-    try {
       return await this.model.delete(id);
     } catch (e) {
       throw e

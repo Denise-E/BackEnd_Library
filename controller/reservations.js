@@ -11,18 +11,11 @@ class ReservationController {
       const { id } = req.params;
 
       let reservations = await this.service.get(id);
-     
-      if(Object.keys(reservations).length > 0){
-        res.status(200)
-        res.json(reservations);
-      }else{
-        res.status(404)
-        res.json(reservations);
-      }
+      res.status(200).json(reservations);
       
     } catch (error) {
       if (error instanceof Errors.NotFoundError) {
-        res.status(404).json({ error: "no se encontro el ID" })
+        res.status(404).json({ error: error.message })
       } else if (error instanceof Errors.InvalidParameterError) {
         res.status(400).json({ error: "el parametro es invalido" })
       } else {
@@ -57,7 +50,7 @@ class ReservationController {
       if (error instanceof Errors.ValidationError) {
         res.status(400).json({ error: "la reserva enviada no es valida para actualizar" })
       } else if (error instanceof Errors.NotFoundError) {
-        res.status(404).json({ error: "no se encontro el ID" })
+        res.status(404).json({ error: error.message })
       } else {
         res.status(500).json({ error: 'ha ocurrido un error inesperado' });
       }
@@ -72,7 +65,7 @@ class ReservationController {
       res.status(200).json(deleted);
     } catch (error) {
       if (error instanceof Errors.NotFoundError) {
-        res.status(404).json({ error: "no se encontro el ID" })
+        res.status(404).json({ error: error.message })
       } else {
         res.status(500).json({ error: 'ha ocurrido un error inesperado' });
       }
