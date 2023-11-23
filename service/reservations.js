@@ -11,10 +11,19 @@ class ReservationService {
   }
 
   get = async (id) => {
-    // Trae todas (o una) reservaciones
-    const reservation = await this.model.get(id);
+    if (id) {
+      const reservation = await this.model.get(id);
+
+      // Si es una sola reserva
+      const client = await this.usersService.get(reservation.id_client);
+      const book = await this.booksService.get(reservation.id_book);
   
-    if (Array.isArray(reservation)) {
+      return {
+        _id: reservation._id,
+        cliente: client ? client.name : 'Cliente no encontrado',
+        libro: book ? book.title : 'Libro no encontrado'
+      };
+    } else {
       // Si es un array de reservas
       const result = await Promise.all(reservation.map(async (reserva) => {
         const client = await this.usersService.get(reserva.id_client);
@@ -28,19 +37,6 @@ class ReservationService {
       }));
   
       return result;
-    } else if (reservation) {
-      // Si es una sola reserva
-      const client = await this.usersService.get(reservation.id_client);
-      const book = await this.booksService.get(reservation.id_book);
-  
-      return {
-        _id: reservation._id,
-        cliente: client ? client.name : 'Cliente no encontrado',
-        libro: book ? book.title : 'Libro no encontrado'
-      };
-    } else {
-      // Si no hay reservas
-      return {};
     }
   };
 
