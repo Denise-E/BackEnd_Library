@@ -16,8 +16,8 @@ class ModelMongoDB {
 
     try {
       const book = await CnxMongoDB.db
-      .collection("books")
-      .findOne({ _id: new ObjectId(id) });
+        .collection("books")
+        .findOne({ _id: new ObjectId(id) });
 
       return book;
     } catch (e) {

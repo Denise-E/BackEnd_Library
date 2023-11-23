@@ -1,4 +1,5 @@
 import ReservationService from "../service/reservations.js";
+import Errors from "../service/service_errors.js";
 
 class ReservationController {
   constructor() {
@@ -10,17 +11,17 @@ class ReservationController {
       const { id } = req.params;
 
       let reservations = await this.service.get(id);
-      
-      if(Object.keys(reservations).length > 0){
-        res.status(200)
-        res.json(reservations);
-      }else{
-        res.status(404)
-        res.json(reservations);
-      }
+
+      res.status(200).json(reservations);
       
     } catch (error) {
-      console.log("Error al obtener reservas: ", error);
+      if (error instanceof Errors.NotFoundError) {
+        res.status(404).json({ error: error.message })
+      } else if (error instanceof Errors.InvalidParameterError) {
+        res.status(400).json({ error: "el parametro es invalido" })
+      } else {
+        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
+      }
     }
   };
 
@@ -30,17 +31,14 @@ class ReservationController {
 
       const added = await this.service.add(prod);
 
-      if(Object.keys(added).length > 0){
-        res.status(201)
-        res.json(added);
-      }else{
-        res.status(404)
-        console.log("Usuario no encontrado");
-      }
-      
+      res.status(201).json({ data: added });
+
     } catch (error) {
-      res.status(400)
-      console.log("Error al crear reserva: ", error);
+      if (error instanceof Errors.ValidationError) {
+        res.status(400).json({ error: "la reserva no es valida para crear" })
+      } else {
+        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
+      }
     }
   };
 
@@ -48,10 +46,17 @@ class ReservationController {
     try {
       const { id } = req.params;
       const reservation = req.body;
+      
       const updated = await this.service.update(id, reservation);
-      res.json(updated);
+      res.status(200).json(updated);
     } catch (error) {
-      console.log("Error al actualizar reserva: ", error);
+      if (error instanceof Errors.ValidationError) {
+        res.status(400).json({ error: "la reserva enviada no es valida para actualizar" })
+      } else if (error instanceof Errors.NotFoundError) {
+        res.status(404).json({ error: error.message })
+      } else {
+        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
+      }
     }
   };
 
@@ -60,9 +65,13 @@ class ReservationController {
       const { id } = req.params;
 
       const deleted = await this.service.delete(id);
-      res.json(deleted);
+      res.status(200).json(deleted);
     } catch (error) {
-      console.log("Error al eliminar reserva: ", error);
+      if (error instanceof Errors.NotFoundError) {
+        res.status(404).json({ error: error.message })
+      } else {
+        res.status(500).json({ error: 'ha ocurrido un error inesperado' });
+      }
     }
   };
 }
